@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Luca Scofano — AI Researcher</title>
+  <meta name="description" content="Luca Scofano — AI researcher. Research, selected projects and publications." />
+  <!-- Fonts: SUSE Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=SUSE+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#ffffff; --text:#0f1720; --muted:#6b7280; --accent:#0ea5a4;
+      --card:#ffffff; --card-edge:#fbfdfe;
+      --max-width:900px; --radius:12px;
+    }
+    body.dark{
+      --bg:#0a0f12; --text:#e6eef2; --muted:#95a1aa; --accent:#06b6d4;
+      --card:#071018; --card-edge:#07181c;
+    }
+    *{box-sizing:border-box}
+    /* Use SUSE Mono for everything as requested */
+    html,body{height:100%;margin:0;font-family:'SUSE Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace;color:var(--text);background:var(--bg);} 
+    a{color:inherit;text-decoration:none}
+
+    /* Layout */
+    .container{max-width:var(--max-width);margin:48px auto;padding:28px}
+    header{display:flex;flex-direction:column;gap:14px}
+    .header-top{display:flex;align-items:center;justify-content:flex-end;gap:22px}
+    nav{display:flex;gap:22px;font-size:0.95rem}
+    .theme-btn{background:transparent;border:1px solid rgba(15,23,32,0.06);padding:8px;border-radius:8px;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+
+    /* About / Hero */
+    .about-row{display:flex;align-items:flex-start;gap:18px}
+    @media(max-width:720px){.about-row{flex-direction:column;align-items:flex-start}}
+    .avatar{width:110px;height:110px;border-radius:50%;object-fit:cover;border:2px solid rgba(14,165,164,0.10);box-shadow:0 10px 30px rgba(10,20,30,0.06)}
+    body.dark .avatar{border-color:rgba(6,182,212,0.12)}
+    h1{margin:0;font-size:clamp(28px,4vw,40px)}
+    p.lead{margin:8px 0 0 0;color:var(--muted);font-size:1.05rem;line-height:1.6;max-width:65ch}
+
+    /* social row: icon-first compact buttons; labels shown on hover */
+    .social-row{display:block;margin:14px 0}
+    .socials{display:flex;gap:8px;flex-wrap:nowrap;align-items:center;overflow:auto;padding-bottom:4px}
+    .social-btn{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;border-radius:10px;border:1px solid rgba(15,23,32,0.06);background:transparent;padding:0 10px;cursor:pointer;transition:transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease}
+    .social-btn svg{width:18px;height:18px;display:block}
+    .social-btn .label{display:none;margin-left:8px;font-size:0.85rem;font-weight:600;white-space:nowrap}
+    .social-btn:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(10,20,30,0.06)}
+    .social-btn:focus{outline:2px solid rgba(14,165,164,0.12);outline-offset:2px}
+    .social-btn:hover .label,.social-btn:focus .label{display:inline-block}
+    @media(max-width:520px){
+      .social-btn{padding:0 8px}
+      .social-btn .label{display:inline-block}
+    }
+
+    /* single-column layout: everything stacks vertically */
+    .grid{display:grid;grid-template-columns:1fr;gap:28px;margin-top:28px}
+
+    .card{padding:20px;border-radius:12px;background:linear-gradient(180deg,var(--card), var(--card-edge));box-shadow:0 6px 18px rgba(15,23,32,0.06)}
+
+    .projects{display:grid;gap:14px}
+    .proj{padding:14px;border-radius:10px;border:1px solid rgba(15,23,32,0.06);opacity:0;transform:translateY(8px);transition:opacity 420ms ease, transform 420ms ease}
+    .proj.visible{opacity:1;transform:none}
+    .proj:hover{transform:translateY(-6px);box-shadow:0 14px 36px rgba(10,20,30,0.06);border-color:rgba(14,165,164,0.08)}
+
+    .meta{font-size:0.95rem;color:var(--muted);line-height:1.5}
+
+    .pub-list{margin:0;padding:0;list-style:none}
+    .pub-item{padding:12px 0;border-bottom:1px dashed rgba(15,23,32,0.06)}
+    body.dark .pub-item{border-color:rgba(255,255,255,0.04)}
+    .pub-meta{color:var(--muted);margin-top:6px}
+    .pub-actions{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+    .link-btn{padding:8px 10px;border-radius:8px;border:1px solid rgba(15,23,32,0.06);font-weight:600;background:transparent}
+
+    footer{margin-top:36px;color:var(--muted);font-size:0.9rem;text-align:center}
+    .muted{color:var(--muted)}
+
+    section h3{margin-top:26px;margin-bottom:12px}
+
+    /* Timeline styles: dates on the right, content aligned left */
+    .timeline{display:flex;flex-direction:column;gap:18px;margin-top:8px}
+    .timeline-item{position:relative;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding-left:18px}
+    .timeline-item .content{flex:1;position:relative;padding-left:12px}
+    .timeline-item .date{flex:0 0 140px;text-align:right;font-size:0.95rem;color:var(--muted)}
+    .timeline-item .dot{position:absolute;left:0;top:8px;width:10px;height:10px;border-radius:50%;background:var(--accent);display:block}
+    @media(max-width:600px){.timeline-item{flex-direction:column}.timeline-item .date{order:2;text-align:left;margin-top:8px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-top">
+        <nav aria-label="Primary navigation">
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#timeline">Timeline</a>
+          <a href="#publications">Publications</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+      </div>
+
+      <div class="about-row" id="about">
+        <img src="assets/avatar.jpg" alt="Luca Scofano" class="avatar" />
+        <div>
+          <h1>Luca Scofano — AI Researcher</h1>
+          <p class="lead">Research, selected projects and publications.</p>
+          <div class="social-row">
+            <div class="socials" role="toolbar" aria-label="Social links">
+              <a class="social-btn" href="#" aria-label="GitHub"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 .198a8 8 0 00-2.53 15.59c.4.074.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.171-.89-1.171-.727-.497.055-.487.055-.487.803.056 1.226.825 1.226.825.715 1.224 1.875.871 2.33.667.072-.518.28-.871.508-1.072-1.777-.202-3.644-.888-3.644-3.954 0-.873.312-1.587.824-2.148-.083-.203-.357-1.016.078-2.118 0 0 .672-.215 2.2.82a7.65 7.65 0 012.003-.269c.68.003 1.366.092 2.003.269 1.527-1.035 2.198-.82 2.198-.82.436 1.102.162 1.915.08 2.118.513.561.823 1.275.823 2.148 0 3.074-1.87 3.748-3.652 3.948.287.247.543.735.543 1.48 0 1.068-.01 1.931-.01 2.193 0 .214.144.463.55.384A8.001 8.001 0 008 .197z"/></svg><span class="label">GitHub</span></a>
+              <!-- replace hrefs with your real profiles -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section id="projects" class="card">
+        <h3>Selected Projects</h3>
+        <div class="projects">
+          <div class="proj">Project A — short description.</div>
+          <div class="proj">Project B — short description.</div>
+        </div>
+      </section>
+
+      <section id="timeline">
+        <h3>Timeline</h3>
+        <div class="timeline">
+          <!-- Example timeline item. Keep the content you already had here or add more items like this. -->
+          <article class="timeline-item" aria-labelledby="t1-title">
+            <span class="dot" aria-hidden="true"></span>
+            <div class="content">
+              <div id="t1-title"><strong>Contacted about Research Engineer role — Generative Vision startup</strong></div>
+              <div class="meta muted">Nov 2, 2024 — Remote role; research & generative vision.</div>
+            </div>
+            <div class="date">Nov 2, 2024</div>
+          </article>
+
+          <!-- Add more items below following the same structure:
+            <article class="timeline-item">
+              <span class="dot"></span>
+              <div class="content">
+                <strong>Role / update title</strong>
+                <div class="meta muted">Short context or notes.</div>
+              </div>
+              <div class="date">Date or period</div>
+            </article>
+          -->
+        </div>
+      </section>
+
+      <section id="publications" class="card">
+        <h3>Publications</h3>
+        <ul class="pub-list">
+          <li class="pub-item">
+            <div><strong>Paper Title — Venue</strong></div>
+            <div class="pub-meta">Year · short description</div>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <div class="muted">© Luca Scofano — AI Researcher</div>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=> {
+      // Theme toggle
+      const btn = document.getElementById('theme-toggle');
+      function setIcon(){
+        if(document.body.classList.contains('dark')) btn.textContent = '☀️';
+        else btn.textContent = '🌙';
+      }
+      // Initialize theme from localStorage
+      if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+      setIcon();
+      btn.addEventListener('click', ()=>{
+        document.body.classList.toggle('dark');
+        if(document.body.classList.contains('dark')) localStorage.setItem('theme','dark'); else localStorage.removeItem('theme');
+        setIcon();
+      });
+
+      // Fade-in on scroll for project cards (safe guards)
+      const projEls = document.querySelectorAll('.proj');
+      if(projEls.length){
+        const observer = new IntersectionObserver((entries)=>{
+          entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+        }, {threshold: 0.12});
+        projEls.forEach(p=>observer.observe(p));
+      }
+    });
+  </script>
+</body>
+</html>
