@@ -8,8 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=SUSE+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#ffffff; --text:#0f1720; --muted:#6b7280; --accent:#0ea5a4; --accent-2:#06b6d4;
-      --card:#ffffff; --card-edge:#fbfdfe; --max-width:980px; --radius:12px;
+      --bg:#ffffff; --text:#0f1720; --muted:#6b7280; --accent:#0ea5a4;
+      --card:#ffffff; --card-edge:#fbfdfe; --max-width:980px; --avatar-w:110px; --avatar-gap:18px;
     }
     body.dark{
       --bg:#0a0f12; --text:#e6eef2; --muted:#95a1aa; --accent:#06b6d4;
@@ -19,47 +19,41 @@
     html,body{height:100%;margin:0;font-family:'SUSE Mono',ui-monospace,SFMono-Regular,Menlo,Monaco,'Roboto Mono',monospace;color:var(--text);background:var(--bg);}
     a{color:inherit;text-decoration:none}
 
-    /* Container */
     .container{max-width:var(--max-width);margin:36px auto;padding:22px}
-    header{display:block}
-
-    /* Header top: nav aligned to the right */
     .header-top{display:flex;align-items:center;justify-content:flex-end;gap:16px;margin-bottom:10px}
     .right-nav{display:flex;gap:14px;align-items:center;font-weight:600}
     .right-nav a{padding:8px 10px;border-radius:8px}
     .right-nav a:hover{background:linear-gradient(180deg, rgba(14,165,164,0.06), transparent)}
-
-    /* Theme button in header-top (small) */
     .theme-small{background:transparent;border:1px solid rgba(15,23,32,0.06);padding:8px;border-radius:8px;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
 
-    /* About row: avatar at left, name + socials at the right of avatar */
-    .about-row{display:flex;align-items:flex-start;gap:18px}
+    .about-row{display:flex;align-items:flex-start;gap:var(--avatar-gap)}
     @media(max-width:780px){.about-row{flex-direction:column;align-items:flex-start}}
-    .avatar{width:110px;height:110px;border-radius:50%;object-fit:cover;border:2px solid rgba(14,165,164,0.10);box-shadow:0 10px 30px rgba(10,20,30,0.06)}
+    .avatar{width:var(--avatar-w);height:var(--avatar-w);border-radius:50%;object-fit:cover;border:2px solid rgba(14,165,164,0.10);box-shadow:0 10px 30px rgba(10,20,30,0.06)}
     body.dark .avatar{border-color:rgba(6,182,212,0.12)}
     .name-block{display:flex;flex-direction:column;gap:10px}
     h1{margin:0;font-size:clamp(28px,4vw,40px)}
-    /* Socials (visible labels next to icons) */
+
     .profile-socials{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
     .profile-social{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:10px;border:1px solid rgba(15,23,32,0.06);cursor:pointer}
     .profile-social svg{width:18px;height:18px}
     .profile-social .label{font-weight:600;font-size:0.95rem;color:var(--muted)}
 
-    /* Bio (plain text, aligned) */
-    .bio-text{margin-top:16px; color:var(--muted); font-size:1.03rem; line-height:1.6; max-width:72ch}
-
-    /* Main grid */
+    /* Main grid: all page sections aligned here (bio & news now start here too) */
     .grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:18px}
 
     .card{padding:16px;border-radius:12px;background:linear-gradient(180deg,var(--card), var(--card-edge));box-shadow:0 6px 18px rgba(15,23,32,0.06)}
 
-    /* News */
-    .news{display:flex;flex-direction:column;gap:12px}
-    .news-item{padding:12px;border-radius:10px;border:1px solid rgba(15,23,32,0.06);opacity:0;transform:translateY(8px);transition:opacity 420ms ease, transform 420ms ease}
+    /* Bio: plain text but aligned with grid (no left indent) */
+    .bio-text{color:var(--muted);font-size:1.03rem;line-height:1.6;margin:0} /* no max-width so it fills the card */
+
+    /* News: unboxed plain list aligned with grid */
+    #news h3{margin:0 0 8px 0}
+    .news{display:flex;flex-direction:column;gap:10px}
+    .news-item{padding:6px 0;border:none;background:transparent;opacity:0;transform:translateY(6px);transition:opacity 420ms ease, transform 420ms ease}
     .news-item.visible{opacity:1;transform:none}
     .news-meta{font-size:0.92rem;color:var(--muted);margin-top:6px}
 
-    /* Projects */
+    /* Projects (kept boxed) */
     .projects{display:grid;gap:14px}
     .proj{padding:14px;border-radius:10px;border:1px solid rgba(15,23,32,0.06);opacity:0;transform:translateY(8px);transition:opacity 420ms ease, transform 420ms ease}
     .proj.visible{opacity:1;transform:none}
@@ -84,14 +78,14 @@
     .topic-pill{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:700;color:white;font-size:0.85rem;margin-right:6px}
     .topic-topology{background:#7c3aed} /* purple */
     .topic-egocentric{background:#0ea5a4} /* teal */
-    .topic-vision{background:#ef4444} /* red */
+
     .muted{color:var(--muted)}
     footer{margin-top:26px;color:var(--muted);font-size:0.9rem;text-align:center}
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Header top: right-aligned nav (About/Timeline/Publications/News/Projects) -->
+    <!-- header: nav right-aligned -->
     <div class="header-top" role="banner">
       <nav class="right-nav" aria-label="Primary navigation">
         <a href="#about">About</a>
@@ -103,7 +97,7 @@
       <button id="theme-toggle" class="theme-small" aria-label="Toggle theme">🌙</button>
     </div>
 
-    <!-- About row: avatar left, name + socials visible next to it -->
+    <!-- About row: avatar + name + socials -->
     <header class="about-row" id="about">
       <img src="assets/avatar.jpg" alt="Luca Scofano" class="avatar" />
       <div class="name-block">
@@ -111,7 +105,6 @@
           <h1>Luca Scofano — AI Researcher</h1>
         </div>
 
-        <!-- Socials visible next to name (labels always shown). Medium removed. -->
         <div class="profile-socials" aria-label="Profiles">
           <a class="profile-social" href="#" title="Google Scholar">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L4 6v6c0 5 4 9 8 9s8-4 8-9V6l-8-4zM8 10h8v2H8v-2z" /></svg>
@@ -146,17 +139,17 @@
       </div>
     </header>
 
-    <!-- Bio as plain text (no box) -->
-    <section id="bio" class="bio-text" aria-labelledby="bio-title">
-      <div id="bio-title" style="display:none">Bio</div>
-      <p>I am Luca Scofano, an AI researcher with a traditional outlook that values established practice and a forward-thinking view on building tools and models that scale. My recent work spans topological deep learning, egocentric perception, and generative vision for synthetic datasets.</p>
-    </section>
+    <!-- All primary content now flows in the grid so Bio & News align with Projects/Timeline/Publications -->
+    <main class="grid" role="main">
+      <!-- Bio (now boxed with .card so it occupies same horizontal space) -->
+      <section id="bio" class="card" aria-labelledby="bio-title">
+        <h3 id="bio-title" style="margin:0 0 10px 0">Bio</h3>
+        <p class="bio-text">I am Luca Scofano, an AI researcher with a traditional outlook that values established practice and a forward-thinking view on building tools and models that scale. My recent work spans topological deep learning, egocentric perception, and generative vision for synthetic datasets.</p>
+      </section>
 
-    <!-- Main content -->
-    <main class="grid">
-      <!-- News (before projects) -->
-      <section id="news" class="card">
-        <h3>News</h3>
+      <!-- News (now boxed with .card so it lines up with other sections) -->
+      <section id="news" class="card" aria-labelledby="news-title">
+        <h3 id="news-title">News</h3>
         <div class="news">
           <article class="news-item">
             <strong>Invited talk — Visual Learning Workshop</strong>
@@ -170,7 +163,7 @@
         </div>
       </section>
 
-      <!-- Selected Projects -->
+      <!-- Selected Projects (restored) -->
       <section id="projects" class="card">
         <h3>Selected Projects</h3>
         <div class="projects">
@@ -179,7 +172,7 @@
         </div>
       </section>
 
-      <!-- Timeline -->
+      <!-- Timeline (restored) -->
       <section id="timeline" class="card">
         <h3>Timeline</h3>
         <div class="timeline">
@@ -203,7 +196,7 @@
         </div>
       </section>
 
-      <!-- Publications with topic pill next to arXiv/Code buttons -->
+      <!-- Publications (restored) -->
       <section id="publications" class="card">
         <h3>Selected Publications</h3>
         <ul class="pub-list">
