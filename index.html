@@ -69,31 +69,38 @@
 
     /* Publications */
     .pub-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
-    .pub-item{padding:12px;border-radius:10px;border:1px solid rgba(15,23,32,0.06);display:flex;justify-content:space-between;align-items:center;gap:12px}
-    .pub-meta{color:var(--muted);margin-top:6px}
-    .pub-actions{display:flex;gap:8px;align-items:center}
+    .pub-item{padding:12px;border-radius:10px;border:1px solid rgba(15,23,32,0.06);display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+    .pub-left{display:flex;flex-direction:column;gap:6px;max-width:72%}
+    .pub-meta{color:var(--muted);margin-top:0;font-size:0.95rem}
+    .pub-labels{display:flex;gap:8px;align-items:center;flex-wrap:nowrap;margin-top:4px}
+    .pub-actions{display:flex;gap:8px;align-items:center;flex-shrink:0}
     .btn{padding:8px 10px;border-radius:8px;border:1px solid rgba(15,23,32,0.06);font-weight:600;background:transparent;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
     .btn svg{width:16px;height:16px}
     .btn:hover{background:linear-gradient(180deg, rgba(14,165,164,0.06), transparent); transform:translateY(-2px)}
-    .topic-pill{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:700;color:white;font-size:0.85rem;margin-right:6px}
+    .topic-pill{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:700;color:white;font-size:0.85rem}
     .topic-topology{background:#7c3aed} /* purple */
     .topic-egocentric{background:#0ea5a4} /* teal */
 
     .muted{color:var(--muted)}
     footer{margin-top:26px;color:var(--muted);font-size:0.9rem;text-align:center}
-    
+
+    /* Responsive tweaks for pub layout */
+    @media(max-width:720px){
+      .pub-left{max-width:100%}
+      .pub-actions{margin-top:8px}
+      .pub-item{flex-direction:column;align-items:flex-start}
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- header: nav right-aligned -->
+    <!-- header: nav right-aligned (Projects link removed) -->
     <div class="header-top" role="banner">
       <nav class="right-nav" aria-label="Primary navigation">
         <a href="#about">About</a>
         <a href="#timeline">Timeline</a>
         <a href="#publications">Publications</a>
         <a href="#news">News</a>
-        <a href="#projects">Projects</a>
       </nav>
       <button id="theme-toggle" class="theme-small" aria-label="Toggle theme">🌙</button>
     </div>
@@ -248,21 +255,21 @@
         </section>
 
 
-      <!-- Publications (restored) -->
+      <!-- Publications (labels moved under conference in one line) -->
       <section id="publications" class="card">
   <h3>Selected Publications</h3>
   <ul class="pub-list">
     <li class="pub-item">
-      <div>
+      <div class="pub-left">
         <strong>Following the Human Thread in Social Navigation</strong>
         <div class="pub-meta">ICLR 2025</div>
+        <div class="pub-labels">
+          <span class="topic-pill topic-topology" title="robotics" style="background:#7c3aed">Robotics</span>
+        </div>
       </div>
-      <div class="pub-actions">
-        <span class="topic-pill topic-topology" title="robotics" style="background:#7c3aed">Robotics</span>
 
-        <!-- arXiv button: icon + text -->
-        <a class="btn" href="#" target="_blank" rel="noopener" title="arXiv (placeholder)" aria-label="Open arXiv (placeholder)">
-          <!-- document icon -->
+      <div class="pub-actions">
+        <a class="btn" href="https://arxiv.org/abs/2404.11327" target="_blank" rel="noopener" title="arXiv (placeholder)" aria-label="Open arXiv (placeholder)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path>
             <path d="M14 2v6h6"></path>
@@ -270,85 +277,109 @@
           <span>arXiv</span>
         </a>
 
-        <!-- Code button: GitHub icon + text -->
-        <a class="btn" href="#" target="_blank" rel="noopener" title="Code (placeholder)" aria-label="Open code repository (placeholder)">
+        <a class="btn" href="https://github.com/L-Scofano/SDA" target="_blank" rel="noopener" title="Code (placeholder)" aria-label="Open code repository (placeholder)">
           <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <path d="M8 .198a8 8 0 00-2.53 15.59c.4.074.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.171-.89-1.171-.727-.497.055-.487.055-.487.803.056 1.226.825 1.226.825.715 1.224 1.875.871 2.33.667.072-.518.28-.871.508-1.072-1.777-.202-3.644-.888-3.644-3.954 0-.873.312-1.587.824-2.148-.083-.203-.357-1.016.078-2.118 0 0 .672-.215 2.2.82a7.65 7.65 0 012.003-.269c.68.003 1.366.092 2.003.269 1.527-1.035 2.198-.82 2.198-.82.436 1.102.162 1.915.08 2.118.513.561.823 1.275.823 2.148 0 3.074-1.87 3.748-3.652 3.948.287.247.543.735.543 1.48 0 1.068-.01 1.931-.01 2.193 0 .214.144.463.55.384A8.001 8.001 0 008 .197z"/>
-          </svg>
+            <path d="M8 .198a8 8 0 00-2.53 15.59c.4.074.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.171-.89-1.171-.727-.497.055-.487.055-.487.803.056 1.226.825 1.226.825.715 1.224 1.875.871 2.33.667.072-.518.28-.871.508-1.072-1.777-.202-3.644-.888-3.644-3.954 0-.873.312-1.587.824-2.148-.083-.203-.357-1.016.078-2.118 0 0 .672-.215 2.2.82a7.65 7.65 0 012.003-.269c.68.003 1.366.092 2.003.269 1.527-1.035 2.198-.82 2.198-.82.436 1.102.162 1.915.08 2.118.513.561.823 1.275.823 2.148 0 3.074-1.87 3.748-3.652 3.948.287.247.543.735.543 1.48 0 1.068-.01 1.931-.01 2.193 0 .214.144.463.55.384A8.001 8.001 0 008 .197z"/></svg>
           <span>Code</span>
         </a>
       </div>
     </li>
 
     <li class="pub-item">
-      <div>
+      <div class="pub-left">
         <strong>Social EgoMesh Estimation</strong>
         <div class="pub-meta">WACV 2025</div>
+        <div class="pub-labels">
+          <span class="topic-pill" title="Motion Estimation" style="background:#0ea5a4">Motion Estimation</span>
+        </div>
       </div>
       <div class="pub-actions">
-        <span class="topic-pill" title="Motion Estimation" style="background:#0ea5a4">Motion Estimation</span>
-        <a class="btn" href="#" target="_blank" rel="noopener" title="arXiv (placeholder)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg><span>arXiv</span></a>
-        <a class="btn" href="#" target="_blank" rel="noopener" title="Code (placeholder)"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .198a8 8 0 00-2.53 15.59c.4.074.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.171-.89-1.171-.727-.497.055-.487.055-.487.803.056 1.226.825 1.226.825.715 1.224 1.875.871 2.33.667.072-.518.28-.871.508-1.072-1.777-.202-3.644-.888-3.644-3.954 0-.873.312-1.587.824-2.148-.083-.203-.357-1.016.078-2.118 0 0 .672-.215 2.2.82a7.65 7.65 0 012.003-.269c.68.003 1.366.092 2.003.269 1.527-1.035 2.198-.82 2.198-.82.436 1.102.162 1.915.08 2.118.513.561.823 1.275.823 2.148 0 3.074-1.87 3.748-3.652 3.948.287.247.543.735.543 1.48 0 1.068-.01 1.931-.01 2.193 0 .214.144.463.55.384A8.001 8.001 0 008 .197z"/></svg><span>Code</span></a>
+        <a class="btn" href="https://arxiv.org/abs/2411.04598" target="_blank" rel="noopener" title="arXiv (placeholder)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg><span>arXiv</span></a>
+        <a class="btn" href="https://github.com/L-Scofano/SEEME" target="_blank" rel="noopener" title="Code (placeholder)"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .198a8 8 0 00-2.53 15.59c.4.074.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.171-.89-1.171-.727-.497.055-.487.055-.487.803.056 1.226.825 1.226.825.715 1.224 1.875.871 2.33.667.072-.518.28-.871.508-1.072-1.777-.202-3.644-.888-3.644-3.954 0-.873.312-1.587.824-2.148-.083-.203-.357-1.016.078-2.118 0 0 .672-.215 2.2.82a7.65 7.65 0 012.003-.269c.68.003 1.366.092 2.003.269 1.527-1.035 2.198-.82 2.198-.82.436 1.102.162 1.915.08 2.118.513.561.823 1.275.823 2.148 0 3.074-1.87 3.748-3.652 3.948.287.247.543.735.543 1.48 0 1.068-.01 1.931-.01 2.193 0 .214.144.463.55.384A8.001 8.001 0 008 .197z"/></svg><span>Code</span></a>
+      </div>
+    </li>
+
+        <li class="pub-item">
+      <div class="pub-left">
+        <strong>TopoX: A Suite of Python Packages for Machine Learning on Topological Domains</strong>
+        <div class="pub-meta">JMLR 2025</div>
+        <div class="pub-labels">
+          <span class="topic-pill" title="Topological Deep Learning" style="background:#a50e13">Topological Deep Learning</span>
+        </div>
+      </div>
+      <div class="pub-actions">
+        <a class="btn" href="https://arxiv.org/abs/2402.02441" target="_blank" rel="noopener" title="arXiv (placeholder)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg><span>arXiv</span></a>
+        <a class="btn" href="https://github.com/pyt-team/TopoModelX" target="_blank" rel="noopener" title="Code (placeholder)"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .198a8 8 0 00-2.53 15.59c.4.074.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.171-.89-1.171-.727-.497.055-.487.055-.487.803.056 1.226.825 1.226.825.715 1.224 1.875.871 2.33.667.072-.518.28-.871.508-1.072-1.777-.202-3.644-.888-3.644-3.954 0-.873.312-1.587.824-2.148-.083-.203-.357-1.016.078-2.118 0 0 .672-.215 2.2.82a7.65 7.65 0 012.003-.269c.68.003 1.366.092 2.003.269 1.527-1.035 2.198-.82 2.198-.82.436 1.102.162 1.915.08 2.118.513.561.823 1.275.823 2.148 0 3.074-1.87 3.748-3.652 3.948.287.247.543.735.543 1.48 0 1.068-.01 1.931-.01 2.193 0 .214.144.463.55.384A8.001 8.001 0 008 .197z"/></svg><span>Code</span></a>
       </div>
     </li>
 
     <li class="pub-item">
-      <div>
+      <div class="pub-left">
         <strong>TI-PREGO: Chain of Thought and In-Context Learning for Online Mistake Detection in Procedural EGOcentric Videos</strong>
         <div class="pub-meta">arXiv 2024</div>
+        <div class="pub-labels">
+          <span class="topic-pill" title="Video understanding" style="background:#f97316">Video understanding</span>
+        </div>
       </div>
       <div class="pub-actions">
-        <span class="topic-pill" title="Video understanding" style="background:#f97316">Video understanding</span>
-        <a class="btn" href="#" target="_blank" rel="noopener" title="arXiv (placeholder)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg><span>arXiv</span></a>
-        <a class="btn" href="#" target="_blank" rel="noopener" title="Code (placeholder)"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .198a8 8 0 00-2.53 15.59c.4.074.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.171-.89-1.171-.727-.497.055-.487.055-.487.803.056 1.226.825 1.226.825.715 1.224 1.875.871 2.33.667.072-.518.28-.871.508-1.072-1.777-.202-3.644-.888-3.644-3.954 0-.873.312-1.587.824-2.148-.083-.203-.357-1.016.078-2.118 0 0 .672-.215 2.2.82a7.65 7.65 0 012.003-.269c.68.003 1.366.092 2.003.269 1.527-1.035 2.198-.82 2.198-.82.436 1.102.162 1.915.08 2.118.513.561.823 1.275.823 2.148 0 3.074-1.87 3.748-3.652 3.948.287.247.543.735.543 1.48 0 1.068-.01 1.931-.01 2.193 0 .214.144.463.55.384A8.001 8.001 0 008 .197z"/></svg><span>Code</span></a>
+        <a class="btn" href="https://arxiv.org/abs/2411.02570" target="_blank" rel="noopener" title="arXiv (placeholder)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg><span>arXiv</span></a>
+        <a class="btn" href="https://github.com/aleflabo/PREGO" target="_blank" rel="noopener" title="Code (placeholder)"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .198a8 8 0 00-2.53 15.59c.4.074.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.171-.89-1.171-.727-.497.055-.487.055-.487.803.056 1.226.825 1.226.825.715 1.224 1.875.871 2.33.667.072-.518.28-.871.508-1.072-1.777-.202-3.644-.888-3.644-3.954 0-.873.312-1.587.824-2.148-.083-.203-.357-1.016.078-2.118 0 0 .672-.215 2.2.82a7.65 7.65 0 012.003-.269c.68.003 1.366.092 2.003.269 1.527-1.035 2.198-.82 2.198-.82.436 1.102.162 1.915.08 2.118.513.561.823 1.275.823 2.148 0 3.074-1.87 3.748-3.652 3.948.287.247.543.735.543 1.48 0 1.068-.01 1.931-.01 2.193 0 .214.144.463.55.384A8.001 8.001 0 008 .197z"/></svg><span>Code</span></a>
       </div>
     </li>
 
     <li class="pub-item">
-      <div>
+      <div class="pub-left">
         <strong>About Latent Roles in Forecasting Players in Team Sports</strong>
         <div class="pub-meta">Neural Processing Letters, 2024</div>
+        <div class="pub-labels">
+          <span class="topic-pill" title="Motion forecasting" style="background:#2563eb">Motion forecasting</span>
+        </div>
       </div>
       <div class="pub-actions">
-        <span class="topic-pill" title="Motion forecasting" style="background:#2563eb">Motion forecasting</span>
         <a class="btn" href="#" target="_blank" rel="noopener" title="arXiv / DOI (placeholder)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg><span>arXiv</span></a>
         <a class="btn" href="#" target="_blank" rel="noopener" title="Code (placeholder)"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .198a8 8 0 00-2.53 15.59c.4.074.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.171-.89-1.171-.727-.497.055-.487.055-.487.803.056 1.226.825 1.226.825.715 1.224 1.875.871 2.33.667.072-.518.28-.871.508-1.072-1.777-.202-3.644-.888-3.644-3.954 0-.873.312-1.587.824-2.148-.083-.203-.357-1.016.078-2.118 0 0 .672-.215 2.2.82a7.65 7.65 0 012.003-.269c.68.003 1.366.092 2.003.269 1.527-1.035 2.198-.82 2.198-.82.436 1.102.162 1.915.08 2.118.513.561.823 1.275.823 2.148 0 3.074-1.87 3.748-3.652 3.948.287.247.543.735.543 1.48 0 1.068-.01 1.931-.01 2.193 0 .214.144.463.55.384A8.001 8.001 0 008 .197z"/></svg><span>Code</span></a>
       </div>
     </li>
 
     <li class="pub-item">
-      <div>
+      <div class="pub-left">
         <strong>PREGO: Online Mistake Detection in Procedural Egocentric Videos</strong>
         <div class="pub-meta">CVPR 2024</div>
+        <div class="pub-labels">
+          <span class="topic-pill" title="Video understanding" style="background:#f97316">Video understanding</span>
+        </div>
       </div>
       <div class="pub-actions">
-        <span class="topic-pill" title="Video understanding" style="background:#f97316">Video understanding</span>
-        <a class="btn" href="#" target="_blank" rel="noopener" title="arXiv (placeholder)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg><span>arXiv</span></a>
-        <a class="btn" href="#" target="_blank" rel="noopener" title="Code (placeholder)"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .198a8 8 0 00-2.53 15.59c.4.074.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.171-.89-1.171-.727-.497.055-.487.055-.487.803.056 1.226.825 1.226.825.715 1.224 1.875.871 2.33.667.072-.518.28-.871.508-1.072-1.777-.202-3.644-.888-3.644-3.954 0-.873.312-1.587.824-2.148-.083-.203-.357-1.016.078-2.118 0 0 .672-.215 2.2.82a7.65 7.65 0 012.003-.269c.68.003 1.366.092 2.003.269 1.527-1.035 2.198-.82 2.198-.82.436 1.102.162 1.915.08 2.118.513.561.823 1.275.823 2.148 0 3.074-1.87 3.748-3.652 3.948.287.247.543.735.543 1.48 0 1.068-.01 1.931-.01 2.193 0 .214.144.463.55.384A8.001 8.001 0 008 .197z"/></svg><span>Code</span></a>
+        <a class="btn" href="https://arxiv.org/abs/2404.01933" target="_blank" rel="noopener" title="arXiv (placeholder)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg><span>arXiv</span></a>
+        <a class="btn" href="https://github.com/aleflabo/PREGO" target="_blank" rel="noopener" title="Code (placeholder)"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .198a8 8 0 00-2.53 15.59c.4.074.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.171-.89-1.171-.727-.497.055-.487.055-.487.803.056 1.226.825 1.226.825.715 1.224 1.875.871 2.33.667.072-.518.28-.871.508-1.072-1.777-.202-3.644-.888-3.644-3.954 0-.873.312-1.587.824-2.148-.083-.203-.357-1.016.078-2.118 0 0 .672-.215 2.2.82a7.65 7.65 0 012.003-.269c.68.003 1.366.092 2.003.269 1.527-1.035 2.198-.82 2.198-.82.436 1.102.162 1.915.08 2.118.513.561.823 1.275.823 2.148 0 3.074-1.87 3.748-3.652 3.948.287.247.543.735.543 1.48 0 1.068-.01 1.931-.01 2.193 0 .214.144.463.55.384A8.001 8.001 0 008 .197z"/></svg><span>Code</span></a>
       </div>
     </li>
 
     <li class="pub-item">
-      <div>
+      <div class="pub-left">
         <strong>Staged Contact-Aware Global Human Motion Forecasting</strong>
         <div class="pub-meta">BMVC 2023</div>
+        <div class="pub-labels">
+          <span class="topic-pill" title="Motion forecasting" style="background:#2563eb">Motion forecasting</span>
+        </div>
       </div>
       <div class="pub-actions">
-        <span class="topic-pill" title="Motion forecasting" style="background:#2563eb">Motion forecasting</span>
-        <a class="btn" href="#" target="_blank" rel="noopener" title="arXiv / proceedings (placeholder)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg><span>arXiv</span></a>
-        <a class="btn" href="#" target="_blank" rel="noopener" title="Code (placeholder)"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .198a8 8 0 00-2.53 15.59c.4.074.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.171-.89-1.171-.727-.497.055-.487.055-.487.803.056 1.226.825 1.226.825.715 1.224 1.875.871 2.33.667.072-.518.28-.871.508-1.072-1.777-.202-3.644-.888-3.644-3.954 0-.873.312-1.587.824-2.148-.083-.203-.357-1.016.078-2.118 0 0 .672-.215 2.2.82a7.65 7.65 0 012.003-.269c.68.003 1.366.092 2.003.269 1.527-1.035 2.198-.82 2.198-.82.436 1.102.162 1.915.08 2.118.513.561.823 1.275.823 2.148 0 3.074-1.87 3.748-3.652 3.948.287.247.543.735.543 1.48 0 1.068-.01 1.931-.01 2.193 0 .214.144.463.55.384A8.001 8.001 0 008 .197z"/></svg><span>Code</span></a>
+        <a class="btn" href="https://arxiv.org/abs/2309.08947" target="_blank" rel="noopener" title="arXiv / proceedings (placeholder)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg><span>arXiv</span></a>
+        <a class="btn" href="https://github.com/L-Scofano/STAG" target="_blank" rel="noopener" title="Code (placeholder)"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .198a8 8 0 00-2.53 15.59c.4.074.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.171-.89-1.171-.727-.497.055-.487.055-.487.803.056 1.226.825 1.226.825.715 1.224 1.875.871 2.33.667.072-.518.28-.871.508-1.072-1.777-.202-3.644-.888-3.644-3.954 0-.873.312-1.587.824-2.148-.083-.203-.357-1.016.078-2.118 0 0 .672-.215 2.2.82a7.65 7.65 0 012.003-.269c.68.003 1.366.092 2.003.269 1.527-1.035 2.198-.82 2.198-.82.436 1.102.162 1.915.08 2.118.513.561.823 1.275.823 2.148 0 3.074-1.87 3.748-3.652 3.948.287.247.543.735.543 1.48 0 1.068-.01 1.931-.01 2.193 0 .214.144.463.55.384A8.001 8.001 0 008 .197z"/></svg><span>Code</span></a>
       </div>
     </li>
 
     <li class="pub-item">
-      <div>
+      <div class="pub-left">
         <strong>Best Practices for 2-Body Pose Forecasting</strong>
         <div class="pub-meta">CVPR Workshops 2023</div>
+        <div class="pub-labels">
+          <span class="topic-pill" title="Motion forecasting" style="background:#2563eb">Motion forecasting</span>
+        </div>
       </div>
       <div class="pub-actions">
-        <span class="topic-pill" title="Motion forecasting" style="background:#2563eb">Motion forecasting</span>
-        <a class="btn" href="#" target="_blank" rel="noopener" title="arXiv / proceedings (placeholder)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg><span>arXiv</span></a>
-        <a class="btn" href="#" target="_blank" rel="noopener" title="Code (placeholder)"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .198a8 8 0 00-2.53 15.59c.4.074.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.171-.89-1.171-.727-.497.055-.487.055-.487.803.056 1.226.825 1.226.825.715 1.224 1.875.871 2.33.667.072-.518.28-.871.508-1.072-1.777-.202-3.644-.888-3.644-3.954 0-.873.312-1.587.824-2.148-.083-.203-.357-1.016.078-2.118 0 0 .672-.215 2.2.82a7.65 7.65 0 012.003-.269c.68.003 1.366.092 2.003.269 1.527-1.035 2.198-.82 2.198-.82.436 1.102.162 1.915.08 2.118.513.561.823 1.275.823 2.148 0 3.074-1.87 3.748-3.652 3.948.287.247.543.735.543 1.48 0 1.068-.01 1.931-.01 2.193 0 .214.144.463.55.384A8.001 8.001 0 008 .197z"/></svg><span>Code</span></a>
+        <a class="btn" href="https://arxiv.org/abs/2304.05758" target="_blank" rel="noopener" title="arXiv / proceedings (placeholder)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg><span>arXiv</span></a>
+        <a class="btn" href="https://www.pinlab.org/bestpractices2body" target="_blank" rel="noopener" title="Code (placeholder)"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .198a8 8 0 00-2.53 15.59c.4.074.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.171-.89-1.171-.727-.497.055-.487.055-.487.803.056 1.226.825 1.226.825.715 1.224 1.875.871 2.33.667.072-.518.28-.871.508-1.072-1.777-.202-3.644-.888-3.644-3.954 0-.873.312-1.587.824-2.148-.083-.203-.357-1.016.078-2.118 0 0 .672-.215 2.2.82a7.65 7.65 0 012.003-.269c.68.003 1.366.092 2.003.269 1.527-1.035 2.198-.82 2.198-.82.436 1.102.162 1.915.08 2.118.513.561.823 1.275.823 2.148 0 3.074-1.87 3.748-3.652 3.948.287.247.543.735.543 1.48 0 1.068-.01 1.931-.01 2.193 0 .214.144.463.55.384A8.001 8.001 0 008 .197z"/></svg><span>Code</span></a>
       </div>
     </li>
   </ul>
