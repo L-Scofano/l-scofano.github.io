@@ -3,10 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Luca Scofano — AI Researcher</title>
-  <meta name="description" content="Luca Scofano — AI researcher. Research, selected projects and publications." />
+  <title>Luca Scofano — Senior AI Researcher</title>
+  <meta name="description" content="Luca Scofano — Senior AI Researcher. Multimodal Foundation Models, Research, and Engineering." />
   
-  <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -29,17 +28,17 @@
       --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
       --ease-sharp: cubic-bezier(0.76, 0, 0.24, 1);
 
-      /* Topic Colors (Restored) */
+      /* Topic Colors */
       --c-purple: #7c3aed;
       --c-teal: #0ea5a4;
       --c-orange: #f97316;
       --c-blue: #2563eb;
       --c-red: #a50e13;
 
-      /* Easter Egg Highlight Colors (Low Opacity) */
-      --hl-trek: rgba(34, 139, 34, 0.2);  /* Forest Green */
-      --hl-photo: rgba(0, 255, 255, 0.2); /* Cyan */
-      --hl-art: rgba(255, 165, 0, 0.2);   /* Warm Orange */
+      /* Easter Egg Highlight Colors */
+      --hl-trek: rgba(34, 139, 34, 0.2);
+      --hl-photo: rgba(0, 255, 255, 0.2);
+      --hl-art: rgba(255, 165, 0, 0.2);
     }
 
     /* Dark Mode Variables */
@@ -50,7 +49,6 @@
       --line: #444444;
       --accent: #FF4F24;
 
-      /* Adjust highlights for dark mode visibility */
       --hl-trek: rgba(50, 205, 50, 0.25);
       --hl-photo: rgba(0, 200, 200, 0.25);
       --hl-art: rgba(255, 140, 0, 0.25);
@@ -72,388 +70,201 @@
       overflow-x: hidden;
     }
 
-    ::selection {
-      background: var(--accent);
-      color: white;
-    }
+    ::selection { background: var(--accent); color: white; }
 
     a { 
-      color: inherit; 
-      text-decoration: none; 
-      cursor: pointer;
-      position: relative;
-      transition: color 0.2s;
+      color: inherit; text-decoration: none; cursor: pointer;
+      position: relative; transition: color 0.2s;
     }
-    
-    a:hover {
-      color: var(--accent);
-    }
+    a:hover { color: var(--accent); }
 
     /* Link Underline Animation */
     .link-hover::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      transform: scaleX(0);
-      height: 1px;
-      bottom: -2px;
-      left: 0;
-      background-color: var(--accent);
-      transform-origin: bottom right;
+      content: ''; position: absolute; width: 100%; height: 1px;
+      bottom: -2px; left: 0; background-color: var(--accent);
+      transform: scaleX(0); transform-origin: bottom right;
       transition: transform 0.25s ease-out;
     }
-    .link-hover:hover::after {
-      transform: scaleX(1);
-      transform-origin: bottom left;
-    }
+    .link-hover:hover::after { transform: scaleX(1); transform-origin: bottom left; }
 
     /* --- TOPOLOGY CANVAS BACKGROUND --- */
     #topology-canvas {
-      position: fixed;
-      top: 0; left: 0;
+      position: fixed; top: 0; left: 0;
       width: 100%; height: 100%;
-      z-index: -1;
-      opacity: 0.4;
-      pointer-events: none;
+      z-index: -1; opacity: 0.4; pointer-events: none;
     }
 
     /* --- LAYOUT --- */
     .swiss-grid {
-      max-width: 900px;
-      margin: 0 auto;
+      max-width: 900px; margin: 0 auto;
       padding: 80px 24px 120px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 120px;
-      position: relative;
-      z-index: 1;
+      display: flex; flex-direction: column; gap: 120px;
+      position: relative; z-index: 1;
     }
 
-    @media(max-width: 700px) {
-      .swiss-grid { padding-top: 40px; gap: 80px; }
-    }
+    @media(max-width: 700px) { .swiss-grid { padding-top: 40px; gap: 80px; } }
 
-    /* --- TYPOGRAPHY HELPERS --- */
+    /* --- TYPOGRAPHY --- */
     h1, h2, h3, h4 { margin: 0; font-weight: 400; }
     
     .display-l {
       font-family: var(--font-display);
-      font-size: 5.5rem; 
-      line-height: 0.95;
-      letter-spacing: -0.02em;
-      font-style: normal;
+      font-size: 5.5rem; line-height: 0.95;
+      letter-spacing: -0.02em; font-style: normal;
     }
 
     .label {
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--sub);
-      margin-bottom: 1.5rem;
-      display: block;
-      font-weight: 700;
+      font-family: var(--font-body); font-size: 0.85rem;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      color: var(--sub); margin-bottom: 1.5rem;
+      display: block; font-weight: 700;
     }
 
-    .text-body {
-      font-size: 1.1rem;
-      font-weight: 400;
-      color: var(--ink);
-    }
+    .text-body { font-size: 1.1rem; font-weight: 400; color: var(--ink); }
 
     /* --- HEADER --- */
     header {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
+      display: flex; flex-direction: column; gap: 24px;
       border-bottom: 1px solid var(--line);
-      padding-bottom: 60px;
-      background: transparent;
+      padding-bottom: 60px; background: transparent;
     }
 
     .meta-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.9rem;
-      color: var(--sub);
-      text-transform: uppercase;
+      display: flex; justify-content: space-between;
+      align-items: center; font-size: 0.9rem;
+      color: var(--sub); text-transform: uppercase;
     }
 
-    .header-controls {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .contact-list {
-      display: flex;
-      gap: 16px;
-    }
+    .header-controls { display: flex; align-items: center; gap: 24px; }
+    .contact-list { display: flex; gap: 16px; }
     
     .theme-toggle {
-      background: none;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: var(--ink);
-      transition: all 0.2s;
+      background: none; border: 1px solid var(--line);
+      border-radius: 50%; width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--ink); transition: all 0.2s;
     }
-    .theme-toggle:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
     /* --- BIO SECTION & IMAGE --- */
-    .bio-section {
-      position: relative;
-      display: block;
-    }
+    .bio-section { position: relative; display: block; }
+    .bio-section::after { content: ""; display: table; clear: both; }
 
-    /* THE ORGANIC BLOB IMAGE */
     .bio-img {
-      float: right;
-      width: 260px;
-      height: auto;
-      margin-left: 40px;
-      margin-bottom: 20px;
+      float: right; width: 260px; height: auto;
+      margin-left: 40px; margin-bottom: 20px;
       object-fit: cover;
       border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
       animation: morph 8s ease-in-out infinite;
       border: 1px solid var(--line);
     }
-
     @keyframes morph {
       0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
       50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
       100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
     }
 
-    .bio-section::after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-
-    /* --- EASTER EGG TEXT INTERACTION (Highlighter) --- */
+    /* --- EASTER EGG TEXT INTERACTION --- */
     .bio-trigger {
-      position: relative;
-      border-bottom: 1px solid var(--line);
-      cursor: zoom-in; /* Custom cursor */
-      
-      /* Gradient Background Setup */
-      background-repeat: no-repeat;
-      background-position: left center;
-      background-size: 0% 100%; /* Start with 0 width */
-      
+      position: relative; border-bottom: 1px solid var(--line);
+      cursor: zoom-in;
+      background-repeat: no-repeat; background-position: left center;
+      background-size: 0% 100%;
       transition: background-size 0.4s cubic-bezier(0.215, 0.61, 0.355, 1), border-color 0.2s;
-      padding: 0 2px; /* Slight breathing room for highlight */
+      padding: 0 2px;
     }
-
-    /* Specific Gradient Colors */
-    .trigger-trek {
-      background-image: linear-gradient(to right, var(--hl-trek), var(--hl-trek));
-    }
-    .trigger-photo {
-      background-image: linear-gradient(to right, var(--hl-photo), var(--hl-photo));
-    }
-    .trigger-art {
-      background-image: linear-gradient(to right, var(--hl-art), var(--hl-art));
-    }
-
-    /* Hover State */
+    .trigger-trek { background-image: linear-gradient(to right, var(--hl-trek), var(--hl-trek)); }
+    .trigger-photo { background-image: linear-gradient(to right, var(--hl-photo), var(--hl-photo)); }
+    .trigger-art { background-image: linear-gradient(to right, var(--hl-art), var(--hl-art)); }
+    
     .bio-trigger:hover {
-      background-size: 100% 100%; /* Sweep to full width */
-      border-bottom-color: transparent; /* Hide underline when highlighted */
-      color: var(--ink);
+      background-size: 100% 100%; border-bottom-color: transparent; color: var(--ink);
     }
 
-    /* --- EASTER EGG IMAGE INTERACTION (Ken Burns) --- */
+    /* --- EASTER EGG IMAGE INTERACTION --- */
     #hobby-reveal {
-      position: fixed;
-      right: 5vw;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 280px;
-      height: 350px;
-      pointer-events: none;
-      z-index: 10;
-      opacity: 0;
+      position: fixed; right: 5vw; top: 50%;
+      transform: translateY(-50%); width: 280px; height: 350px;
+      pointer-events: none; z-index: 10; opacity: 0;
       transition: opacity 0.4s var(--ease-out);
     }
-    
     #hobby-reveal img {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      border: 1px solid var(--line);
-      
-      /* Default state before animation */
-      transform: scale(1); 
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: 0; border: 1px solid var(--line); transform: scale(1);
     }
-    
-    /* The Ken Burns Animation */
-    @keyframes ken-burns {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.1); }
-    }
+    @keyframes ken-burns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+    #hobby-reveal img.visible { opacity: 1; animation: ken-burns 10s linear forwards; }
 
-    #hobby-reveal img.visible {
-      opacity: 1;
-      /* Apply animation only when visible */
-      animation: ken-burns 10s linear forwards; 
-    }
-
-    @media(max-width: 1100px) {
-      #hobby-reveal { display: none; }
-    }
-
+    @media(max-width: 1100px) { #hobby-reveal { display: none; } }
     @media(max-width: 700px) {
-      .bio-img {
-        float: none;
-        width: 100%;
-        max-width: 200px;
-        margin: 0 auto 24px auto;
-        display: block;
-      }
+      .bio-img { float: none; width: 100%; max-width: 200px; margin: 0 auto 24px auto; display: block; }
       .bio-section { text-align: left; }
     }
-
 
     /* --- NEWS --- */
     .news-grid { display: grid; gap: 16px; }
     .news-row {
-      display: grid;
-      grid-template-columns: 90px 1fr;
-      align-items: baseline;
-      font-size: 1rem;
-      border-bottom: 1px dotted var(--line);
-      padding-bottom: 12px;
+      display: grid; grid-template-columns: 90px 1fr;
+      align-items: baseline; font-size: 1rem;
+      border-bottom: 1px dotted var(--line); padding-bottom: 12px;
     }
     .news-row:last-child { border-bottom: none; }
-    
-    .news-date { 
-      color: var(--accent); 
-      font-size: 0.9rem; 
-      font-weight: 700;
-    }
+    .news-date { color: var(--accent); font-size: 0.9rem; font-weight: 700; }
 
     /* --- TIMELINE --- */
     .timeline {
-      border-left: 1px solid var(--line);
-      margin-left: 7px;
-      padding-left: 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
+      border-left: 1px solid var(--line); margin-left: 7px;
+      padding-left: 32px; display: flex; flex-direction: column; gap: 40px;
     }
-
     .timeline-item { position: relative; }
-
     .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -37px;
-      top: 6px;
-      width: 9px;
-      height: 9px;
-      background: var(--bg);
-      border: 1px solid var(--accent);
-      border-radius: 50%;
+      content: ''; position: absolute; left: -37px; top: 6px;
+      width: 9px; height: 9px; background: var(--bg);
+      border: 1px solid var(--accent); border-radius: 50%;
       transition: background 0.3s;
     }
     .timeline-item:hover::before { background: var(--accent); }
-
     .timeline-date {
-      font-family: var(--font-display);
-      font-style: normal;
-      font-weight: 700;
-      font-size: 1.3rem;
-      color: var(--sub);
-      margin-bottom: 6px;
+      font-family: var(--font-display); font-weight: 700; font-size: 1.3rem;
+      color: var(--sub); margin-bottom: 6px;
     }
-    
     .timeline-role { font-weight: 700; color: var(--ink); font-size: 1.1rem; }
     .timeline-loc { color: var(--sub); font-weight: 400; }
     .timeline-desc { font-size: 1rem; color: var(--sub); margin-top: 4px; }
 
     /* --- FISHEYE LIST --- */
     .list-section { position: relative; }
-    
-    .fisheye-list { 
-      list-style: none; 
-      padding: 0; 
-      margin: 0; 
-      position: relative; 
-    }
+    .fisheye-list { list-style: none; padding: 0; margin: 0; position: relative; }
     
     .fisheye-item {
-      position: relative;
-      border-top: 1px solid var(--line);
-      padding: 32px 0;
-      display: block;
-      transition: border-color 0.3s;
+      position: relative; border-top: 1px solid var(--line);
+      padding: 32px 0; display: block; transition: border-color 0.3s;
     }
     .fisheye-item:last-child { border-bottom: 1px solid var(--line); }
 
     .item-content {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 100%;
-      transform-origin: left center;
-      position: relative;
-      z-index: 2;
-      pointer-events: auto;
+      display: flex; flex-direction: column; gap: 10px; width: 100%;
+      transform-origin: left center; position: relative; z-index: 2; pointer-events: auto;
     }
 
     .pub-title {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      line-height: 1.2;
-      font-style: normal;
-      font-weight: 700;
-      color: var(--ink);
-      margin: 0;
-      transition: color 0.2s;
+      font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2;
+      font-weight: 700; color: var(--ink); margin: 0; transition: color 0.2s;
     }
-
-    .pub-venue {
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      font-style: normal;
-      color: var(--sub);
-    }
+    .pub-venue { font-family: var(--font-body); font-size: 0.95rem; color: var(--sub); }
 
     .pub-action-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 14px;
-      flex-wrap: wrap;
-      gap: 10px;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 14px; flex-wrap: wrap; gap: 10px;
     }
-
     .pub-tags { display: flex; gap: 8px; align-items: center; }
     
     .topic-pill {
-      font-size: 0.75rem;
-      padding: 4px 12px;
-      border-radius: 99px;
-      font-weight: 700;
-      color: white;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      display: inline-block;
+      font-size: 0.75rem; padding: 4px 12px; border-radius: 99px;
+      font-weight: 700; color: white; letter-spacing: 0.02em;
+      text-transform: uppercase; display: inline-block;
     }
-    
     .tag-purple { background-color: var(--c-purple); }
     .tag-teal { background-color: var(--c-teal); }
     .tag-orange { background-color: var(--c-orange); }
@@ -461,25 +272,12 @@
     .tag-red { background-color: var(--c-red); }
 
     .pub-links { display: flex; gap: 10px; }
-    
     .btn-link {
-      font-size: 0.8rem;
-      font-family: var(--font-body);
-      padding: 6px 14px;
-      border: 1px solid var(--ink);
-      color: var(--ink);
-      text-transform: uppercase;
-      font-weight: 700;
-      transition: all 0.2s;
-      text-decoration: none;
-      background: transparent;
-      cursor: pointer;
+      font-size: 0.8rem; font-family: var(--font-body); padding: 6px 14px;
+      border: 1px solid var(--ink); color: var(--ink); text-transform: uppercase;
+      font-weight: 700; transition: all 0.2s; background: transparent; cursor: pointer;
     }
-    
-    .btn-link:hover {
-      background: var(--ink);
-      color: var(--bg);
-    }
+    .btn-link:hover { background: var(--ink); color: var(--bg); }
 
     .fisheye-item.is-active .pub-title { color: var(--ink); }
     .fisheye-item.is-active { border-top-color: var(--accent); }
@@ -494,23 +292,16 @@
 
     /* --- FOOTER --- */
     footer {
-      padding-top: 60px;
-      border-top: 1px solid var(--line);
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      color: var(--sub);
-      text-transform: uppercase;
+      padding-top: 60px; border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between;
+      font-size: 0.85rem; color: var(--sub); text-transform: uppercase;
     }
-
   </style>
 </head>
 <body>
 
-  <!-- Background Topology Canvas -->
   <canvas id="topology-canvas"></canvas>
 
-  <!-- Side Column Hobby Reveal Container -->
   <div id="hobby-reveal">
     <img id="img-trekking" src="https://placehold.co/280x350/1A2F1A/FFF?text=Trekking+Alps" alt="Trekking Photo">
     <img id="img-photo" src="assets/viet.jpeg" alt="Photography Photo">
@@ -519,14 +310,13 @@
 
   <main class="swiss-grid">
     
-    <!-- Header -->
     <header>
       <div class="meta-row">
         <span>Based in Rome, IT</span>
         
         <div class="header-controls">
           <nav class="contact-list">
-            <a href="assets/cv25.pdf" class="link-hover">CV</a>
+            <a href="assets/cv.pdf" class="link-hover">CV</a>
             <a href="https://scholar.google.com/citations?user=2nLw-cgAAAAJ&hl=it" class="link-hover">Scholar</a>
             <a href="https://github.com/L-Scofano" class="link-hover">Github</a>
             <a href="mailto:lscofano2@gmail.com" class="link-hover">Email</a>
@@ -541,30 +331,27 @@
       <h1 class="display-l">Luca Scofano</h1>
       
       <div class="meta-row">
-        <span>Postdoctoral Researcher</span>
-        <span>Sapienza University</span>
+        <span>Senior AI Researcher</span>
+        <span>Translated</span>
       </div>
     </header>
 
-    <!-- Bio -->
     <section class="bio-section">
       
       <span class="label">Biography</span>
       
-      <!-- Animated Bio Image Floating Right -->
       <img src="assets/img.jpeg" alt="Luca Scofano" class="bio-img">
 
-      <!-- Main Bio Text -->
       <div>
         <p class="text-body">
-          I investigate the mechanics of intelligence. Currently, I am a Postdoctoral Researcher in AI at Sapienza University, applying interpretable machine-learning to decode neural signals.
+          I investigate the mechanics of intelligence. Currently, I am a <b>Senior AI Researcher at Translated</b>, designing multimodal foundation models and bridging the gap between deep theoretical research and engineering at scale.
         </p>
         <p class="text-body" style="margin-top: 24px;">
           My work spans 
-          <a href="#publications" class="link-hover"><b>multimodal learning</b></a>, 
+          <a href="#publications" class="link-hover"><b>DVPS</b></a>, 
           <a href="#publications" class="link-hover"><b>topology</b></a>, and 
           <a href="#publications" class="link-hover"><b>embodied AI</b></a>. 
-          Previously, I was a visiting researcher at TU Darmstadt.
+          Previously, I was a Postdoctoral Researcher at Sapienza University and a Visiting Researcher at TU Darmstadt.
         </p>
         <p class="text-body" style="margin-top: 24px; color: var(--sub);">
           Offline, I focus on 
@@ -575,13 +362,12 @@
       </div>
     </section>
 
-    <!-- News -->
     <section>
       <span class="label">Latest</span>
       <div class="news-grid">
         <div class="news-row">
-          <span class="news-date">2025</span>
-          <span>Started Postdoc at Sapienza University of Rome.</span>
+          <span class="news-date">Feb 2026</span>
+          <span>Joined Translated as Senior AI Researcher.</span>
         </div>
         <div class="news-row">
           <span class="news-date">ICLR 25</span>
@@ -594,12 +380,16 @@
       </div>
     </section>
 
-    <!-- Timeline -->
     <section>
       <span class="label">Timeline</span>
       <div class="timeline">
         <div class="timeline-item">
-          <div class="timeline-date">2025 — Present</div>
+          <div class="timeline-date">Feb 2026 — Present</div>
+          <div class="timeline-role">Senior AI Researcher <span class="timeline-loc">/ Translated</span></div>
+          <div class="timeline-desc">Multimodal foundation models, DVPS, and scalable training.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2025 — Jan 2026</div>
           <div class="timeline-role">Postdoctoral Researcher <span class="timeline-loc">/ Sapienza University</span></div>
           <div class="timeline-desc">Applying AI Methods to decode neural signals.</div>
         </div>
@@ -621,12 +411,10 @@
       </div>
     </section>
 
-    <!-- Publications (Fisheye List Restored) -->
     <section class="list-section" id="publications">
       <span class="label">Selected Research</span>
       <ul class="fisheye-list" id="fisheye-container">
         
-        <!-- Item 1 -->
         <li class="fisheye-item" data-id="1">
           <div class="item-content">
             <h4 class="pub-title">Following the Human Thread in Social Navigation</h4>
@@ -644,7 +432,6 @@
           </div>
         </li>
 
-        <!-- Item 2 -->
         <li class="fisheye-item" data-id="2">
           <div class="item-content">
             <h4 class="pub-title">Social EgoMesh Estimation</h4>
@@ -661,7 +448,6 @@
           </div>
         </li>
 
-        <!-- Item 3 -->
         <li class="fisheye-item" data-id="3">
           <div class="item-content">
             <h4 class="pub-title">TopoX: Python Packages for ML on Topological Domains</h4>
@@ -678,7 +464,6 @@
           </div>
         </li>
 
-        <!-- Item 4 -->
         <li class="fisheye-item" data-id="4">
           <div class="item-content">
             <h4 class="pub-title">TI-PREGO: Chain of Thought for Online Mistake Detection</h4>
@@ -695,7 +480,6 @@
           </div>
         </li>
 
-        <!-- Item 5 -->
         <li class="fisheye-item" data-id="5">
           <div class="item-content">
             <h4 class="pub-title">About Latent Roles in Forecasting Players in Team Sports</h4>
@@ -711,7 +495,6 @@
           </div>
         </li>
 
-        <!-- Item 6 -->
         <li class="fisheye-item" data-id="6">
           <div class="item-content">
             <h4 class="pub-title">PREGO: Online Mistake Detection</h4>
@@ -728,7 +511,6 @@
           </div>
         </li>
 
-        <!-- Item 7 -->
         <li class="fisheye-item" data-id="7">
           <div class="item-content">
             <h4 class="pub-title">Staged Contact-Aware Global Human Motion Forecasting</h4>
@@ -778,7 +560,6 @@
       updateIcon(isDark);
     });
 
-
     /**
      * FISHEYE LIST INTERACTION
      */
@@ -795,35 +576,44 @@
     container.addEventListener('mouseleave', () => { isHovering = false; });
 
     function animateList() {
+      if (!isHovering) {
+        items.forEach(item => {
+           const content = item.querySelector('.item-content');
+           if (content.style.transform !== 'scale(1)') {
+             content.style.transform = 'scale(1)';
+             content.style.opacity = '1';
+             item.classList.remove('is-active');
+             item.style.zIndex = '1';
+           }
+        });
+        requestAnimationFrame(animateList);
+        return;
+      }
+
       items.forEach(item => {
         const rect = item.getBoundingClientRect();
         const itemCenter = rect.top + rect.height / 2;
         
         let scale = 1;
-        let opacity = 0.7; /* Adjusted base opacity for readability */
+        let opacity = 0.4; // Dim non-active items
         let zIndex = 1;
         let isActive = false;
 
-        if (isHovering) {
-          const dist = Math.abs(mouseY - itemCenter);
-          if (dist < RANGE) {
-            const strength = 1 - (dist / RANGE);
-            scale = 1 + (strength * (MAX_SCALE - 1));
-            opacity = 0.7 + (strength * 0.3);
-            if (dist < rect.height / 2) {
-              isActive = true;
-              zIndex = 10;
-            }
-          } else {
-            opacity = 0.4;
+        const dist = Math.abs(mouseY - itemCenter);
+        
+        if (dist < RANGE) {
+          const strength = 1 - (dist / RANGE);
+          scale = 1 + (strength * (MAX_SCALE - 1));
+          opacity = 0.4 + (strength * 0.6);
+          if (dist < rect.height / 2) {
+            isActive = true;
+            zIndex = 10;
           }
-        } else {
-          opacity = 1;
         }
 
         const content = item.querySelector('.item-content');
         content.style.transform = `scale(${scale})`;
-        content.style.opacity = isHovering ? opacity : 1;
+        content.style.opacity = opacity;
         
         if (isActive) {
           item.classList.add('is-active');
@@ -848,10 +638,7 @@
         const targetId = trigger.getAttribute('data-target');
         const img = document.getElementById(targetId);
         
-        // Show container
         hobbyContainer.style.opacity = 1;
-        
-        // Hide all other images, show target
         document.querySelectorAll('#hobby-reveal img').forEach(el => el.classList.remove('visible'));
         if(img) img.classList.add('visible');
       });
@@ -896,15 +683,13 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       const isDark = document.body.classList.contains('dark');
-      // Adjust colors based on theme
       const lineColor = isDark ? '255, 255, 255' : '26, 26, 26';
-      const dotColor = isDark ? '#FF4F24' : '#FF3300'; // Accent color
+      const dotColor = isDark ? '#FF4F24' : '#FF3300';
 
       for(let i = 0; i < points.length; i++) {
         let p = points[i];
         p.x += p.vx; p.y += p.vy;
         
-        // Mouse Repel
         let dx = mouse.x - p.x; let dy = mouse.y - p.y;
         let dist = Math.sqrt(dx*dx + dy*dy);
         if(dist < 200) {
@@ -914,17 +699,14 @@
           p.y -= Math.sin(angle) * force * 2;
         }
         
-        // Boundaries
         if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
         if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
 
-        // Draw Point
         ctx.beginPath();
         ctx.arc(p.x, p.y, 2, 0, Math.PI*2);
         ctx.fillStyle = dotColor;
         ctx.fill();
 
-        // Draw Lines
         for(let j = i + 1; j < points.length; j++) {
           let p2 = points[j];
           let lx = p.x - p2.x; let ly = p.y - p2.y;
