@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Luca Scofano — Senior AI Researcher</title>
-  <meta name="description" content="Luca Scofano — Senior AI Researcher at Translated, working on pre-training multilingual large language models." />
+  <title>Luca Scofano | Senior AI Researcher</title>
+  <meta name="description" content="Luca Scofano, Senior AI Researcher at Translated, working on pre-training multilingual large language models." />
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23FF3300'/%3E%3Ctext x='50' y='62' font-size='50' text-anchor='middle' font-family='serif' fill='white'%3ELS%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   
   <style>
     /* --- VARIABLES --- */
@@ -55,7 +55,7 @@
     }
 
     /* --- RESET & BASE --- */
-    * { box-sizing: border-box; cursor: default; }
+    * { box-sizing: border-box; }
     
     html, body {
       margin: 0; padding: 0;
@@ -279,8 +279,8 @@
     }
     .btn-link:hover { background: var(--ink); color: var(--bg); }
 
-    .fisheye-item.is-active .pub-title { color: var(--ink); }
-    .fisheye-item.is-active { border-top-color: var(--accent); }
+    .fisheye-item:hover { border-top-color: var(--accent); }
+    .fisheye-item:hover .pub-title { color: var(--accent); }
 
     @media(max-width: 700px) {
       .pub-action-row { flex-direction: column; align-items: flex-start; gap: 12px; }
@@ -303,7 +303,7 @@
   <canvas id="topology-canvas"></canvas>
 
   <div id="hobby-reveal">
-    <img id="img-trekking" src="https://placehold.co/280x350/1A2F1A/FFF?text=Trekking+Alps" alt="Trekking Photo">
+    <img id="img-trekking" src="assets/trekking.jpg" alt="Trekking Photo" style="object-position: 60% center;">
     <img id="img-photo" src="assets/viet.jpeg" alt="Photography Photo">
     <img id="img-art" src="assets/art.jpeg" alt="Art Photo">
   </div>
@@ -551,7 +551,8 @@
         themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>';
       }
     }
-    if(localStorage.getItem('theme') === 'dark') {
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.body.classList.add('dark');
       updateIcon(true);
     }
@@ -562,71 +563,6 @@
       updateIcon(isDark);
     });
 
-    /**
-     * FISHEYE LIST INTERACTION
-     */
-    const container = document.getElementById('fisheye-container');
-    const items = Array.from(document.querySelectorAll('.fisheye-item'));
-    
-    let mouseY = -1000;
-    let isHovering = false;
-    const MAX_SCALE = 1.15;
-    const RANGE = 120;
-
-    document.addEventListener('mousemove', (e) => { mouseY = e.clientY; });
-    container.addEventListener('mouseenter', () => { isHovering = true; });
-    container.addEventListener('mouseleave', () => { isHovering = false; });
-
-    function animateList() {
-      if (!isHovering) {
-        items.forEach(item => {
-           const content = item.querySelector('.item-content');
-           if (content.style.transform !== 'scale(1)') {
-             content.style.transform = 'scale(1)';
-             content.style.opacity = '1';
-             item.classList.remove('is-active');
-             item.style.zIndex = '1';
-           }
-        });
-        requestAnimationFrame(animateList);
-        return;
-      }
-
-      items.forEach(item => {
-        const rect = item.getBoundingClientRect();
-        const itemCenter = rect.top + rect.height / 2;
-        
-        let scale = 1;
-        let opacity = 0.4; // Dim non-active items
-        let zIndex = 1;
-        let isActive = false;
-
-        const dist = Math.abs(mouseY - itemCenter);
-        
-        if (dist < RANGE) {
-          const strength = 1 - (dist / RANGE);
-          scale = 1 + (strength * (MAX_SCALE - 1));
-          opacity = 0.4 + (strength * 0.6);
-          if (dist < rect.height / 2) {
-            isActive = true;
-            zIndex = 10;
-          }
-        }
-
-        const content = item.querySelector('.item-content');
-        content.style.transform = `scale(${scale})`;
-        content.style.opacity = opacity;
-        
-        if (isActive) {
-          item.classList.add('is-active');
-        } else {
-          item.classList.remove('is-active');
-        }
-        item.style.zIndex = zIndex;
-      });
-      requestAnimationFrame(animateList);
-    }
-    animateList();
 
 
     /**
