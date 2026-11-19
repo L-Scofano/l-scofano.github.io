@@ -620,6 +620,10 @@
       <h2 class="label"><span class="label-num">02</span> — Latest</h2>
       <div class="news-grid">
         <div class="news-row">
+          <span class="news-date">Dec 2026</span>
+          <span>Co-organizing <b>Multimodality for Everyone (M4E)</b>, a session on multimodal foundation models at the ELLIS UnConference in Paris. <a href="https://dvps-ai.github.io/multimodality4everyone/" class="link-hover">Website</a></span>
+        </div>
+        <div class="news-row">
           <span class="news-date">Nov 2026</span>
           <span>Released <b>Lara Mini Base</b>, a multilingual base model trained from scratch at Translated. <a href="https://arxiv.org/abs/2611.16956" class="link-hover">Report</a> · <a href="https://huggingface.co/translated/Lara-4-Mini-Base" class="link-hover">Weights</a></span>
         </div>
@@ -814,7 +818,7 @@
     <footer id="contact">
       <div class="footer-cta">
         <h2 class="label">Get in touch</h2>
-        <a href="#contact" class="footer-email link-hover" data-email data-email-show>Email me</a>
+        <a href="#contact" class="footer-email link-hover" data-email>Email me →</a>
         <nav class="footer-links" aria-label="Elsewhere">
           <a href="assets/cv25.pdf" class="link-hover">CV</a>
           <a href="https://scholar.google.com/citations?user=2nLw-cgAAAAJ&hl=en" class="link-hover">Scholar</a>
@@ -841,10 +845,7 @@
        Put together in the browser, so the address never appears in the page source
        (most scrapers read the raw HTML and don't run scripts). */
     const email = atob('bHNjb2Zhbm8yQGdtYWlsLmNvbQ==');
-    document.querySelectorAll('[data-email]').forEach(a => {
-      a.href = 'mailto:' + email;
-      if (a.hasAttribute('data-email-show')) a.textContent = email;
-    });
+    document.querySelectorAll('[data-email]').forEach(a => { a.href = 'mailto:' + email; });
 
 
     /* --- SECTIONS FADE IN ON SCROLL ---
