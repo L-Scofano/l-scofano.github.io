@@ -5,28 +5,79 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Luca Scofano | Senior AI Researcher</title>
   <meta name="description" content="Luca Scofano, Senior AI Researcher at Translated, working on pre-training multilingual large language models." />
-  
+  <link rel="canonical" href="https://l-scofano.github.io/" />
+  <meta name="theme-color" content="#FDFBF7" />
+
+  <!-- Link previews (LinkedIn, Slack, X, WhatsApp...) -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:url" content="https://l-scofano.github.io/" />
+  <meta property="og:site_name" content="Luca Scofano" />
+  <meta property="og:title" content="Luca Scofano | Senior AI Researcher" />
+  <meta property="og:description" content="From pixels to polyglots. Pre-training multilingual language models at Translated." />
+  <meta property="og:image" content="https://l-scofano.github.io/assets/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Luca Scofano, Senior AI Researcher at Translated" />
+  <meta property="profile:first_name" content="Luca" />
+  <meta property="profile:last_name" content="Scofano" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script>
+    /* Apply the saved theme before the first paint, so dark-mode visitors never see a white flash */
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+      var dark = false;
+      try {
+        var saved = localStorage.getItem('theme');
+        dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      } catch (e) {}
+      if (dark) {
+        root.classList.add('dark');
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#121212');
+      }
+    })();
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Luca Scofano",
+    "url": "https://l-scofano.github.io/",
+    "image": "https://l-scofano.github.io/assets/img.jpeg",
+    "jobTitle": "Senior AI Researcher",
+    "worksFor": { "@type": "Organization", "name": "Translated", "url": "https://translated.com" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Sapienza University of Rome" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Rome", "addressCountry": "IT" },
+    "knowsAbout": ["Large language models", "Multilingual pre-training", "Computer vision", "Topological deep learning", "Embodied AI"],
+    "sameAs": [
+      "https://scholar.google.com/citations?user=2nLw-cgAAAAJ",
+      "https://github.com/L-Scofano"
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  
+
   <style>
     /* --- VARIABLES --- */
     :root {
       /* Warm Light Mode */
-      --bg: #FDFBF7; 
+      --bg: #FDFBF7;
       --ink: #1A1A1A;
       --sub: #666666;
       --line: rgba(26, 26, 26, 0.15);
       --accent: #FF3300; /* International Orange */
-      
+
       --font-display: 'Instrument Serif', serif;
       --font-body: 'Space Mono', monospace;
-      
+
       --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
-      --ease-sharp: cubic-bezier(0.76, 0, 0.24, 1);
 
       /* Topic Colors */
       --c-purple: #7c3aed;
@@ -34,6 +85,7 @@
       --c-orange: #f97316;
       --c-blue: #2563eb;
       --c-red: #a50e13;
+      --c-pink: #db2777;
 
       /* Easter Egg Highlight Colors */
       --hl-trek: rgba(34, 139, 34, 0.2);
@@ -41,8 +93,8 @@
       --hl-art: rgba(255, 165, 0, 0.2);
     }
 
-    /* Dark Mode Variables */
-    body.dark {
+    /* Dark Mode Variables (class is set on <html> before first paint) */
+    html.dark {
       --bg: #121212;
       --ink: #E0E0E0;
       --sub: #888888;
@@ -56,27 +108,33 @@
 
     /* --- RESET & BASE --- */
     * { box-sizing: border-box; }
-    
+    [hidden] { display: none !important; }
+
     html, body {
       margin: 0; padding: 0;
       width: 100%; min-height: 100%;
       background-color: var(--bg);
       color: var(--ink);
       font-family: var(--font-body);
-      font-size: 17px; 
+      font-size: 17px;
       line-height: 1.6;
       transition: background-color 0.4s var(--ease-out), color 0.4s var(--ease-out);
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
+    /* The page colour lives on <html>; <body> stays transparent so the background graph (z-index -1) shows through */
+    body { background-color: transparent; }
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 
     ::selection { background: var(--accent); color: white; }
 
-    a { 
+    a {
       color: inherit; text-decoration: none; cursor: pointer;
       position: relative; transition: color 0.2s;
     }
     a:hover { color: var(--accent); }
+
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
     /* Link Underline Animation */
     .link-hover::after {
@@ -87,11 +145,19 @@
     }
     .link-hover:hover::after { transform: scaleX(1); transform-origin: bottom left; }
 
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: none; }
+    }
+
     /* --- TOPOLOGY CANVAS BACKGROUND --- */
     #topology-canvas {
       position: fixed; top: 0; left: 0;
       width: 100%; height: 100%;
       z-index: -1; opacity: 0.4; pointer-events: none;
+      /* Full strength in the margins, quieter behind the text column (and everywhere on phones) */
+      -webkit-mask-image: linear-gradient(to right, #000 calc(50% - 560px), rgba(0,0,0,0.3) calc(50% - 430px), rgba(0,0,0,0.3) calc(50% + 430px), #000 calc(50% + 560px));
+      mask-image: linear-gradient(to right, #000 calc(50% - 560px), rgba(0,0,0,0.3) calc(50% - 430px), rgba(0,0,0,0.3) calc(50% + 430px), #000 calc(50% + 560px));
     }
 
     /* --- LAYOUT --- */
@@ -104,14 +170,38 @@
 
     @media(max-width: 700px) { .swiss-grid { padding-top: 40px; gap: 80px; } }
 
+    /* Sections fade in once as they scroll into view (class added by JS) */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
+    .reveal.in { opacity: 1; transform: none; }
+
     /* --- TYPOGRAPHY --- */
     h1, h2, h3, h4 { margin: 0; font-weight: 400; }
-    
+
     .display-l {
       font-family: var(--font-display);
       font-size: 5.5rem; line-height: 0.95;
       letter-spacing: -0.02em; font-style: normal;
     }
+
+    /* Name reveal: letters rise in one after another */
+    .display-l .word { display: inline-block; white-space: nowrap; }
+    .display-l .char {
+      display: inline-block;
+      animation: rise 0.9s var(--ease-out) both;
+      animation-delay: calc(var(--i) * 45ms + 80ms);
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(0.35em); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .hook {
+      font-family: var(--font-display); font-style: italic;
+      font-size: 2.4rem; line-height: 1.1; margin: -6px 0 0 0;
+      color: var(--ink);
+    }
+    .hook em { color: var(--accent); }
+    .js .hook { animation: fade-up 0.9s var(--ease-out) 0.65s both; }
 
     .label {
       font-family: var(--font-body); font-size: 0.85rem;
@@ -119,6 +209,7 @@
       color: var(--sub); margin-bottom: 1.5rem;
       display: block; font-weight: 700;
     }
+    .label-num { color: var(--accent); }
 
     .text-body { font-size: 1.1rem; font-weight: 400; color: var(--ink); }
 
@@ -130,14 +221,28 @@
     }
 
     .meta-row {
-      display: flex; justify-content: space-between;
-      align-items: center; font-size: 0.9rem;
+      display: flex; justify-content: space-between; flex-wrap: wrap;
+      align-items: center; gap: 8px 24px; font-size: 0.9rem;
       color: var(--sub); text-transform: uppercase;
     }
 
     .header-controls { display: flex; align-items: center; gap: 24px; }
     .contact-list { display: flex; gap: 16px; }
-    
+
+    .now { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); }
+    .now-dot {
+      position: relative; flex: none;
+      width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+    }
+    .now-dot::after {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      background: var(--accent); animation: pulse 2.2s var(--ease-out) infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(3.2); opacity: 0; }
+    }
+
     .theme-toggle {
       background: none; border: 1px solid var(--line);
       border-radius: 50%; width: 36px; height: 36px;
@@ -176,12 +281,12 @@
     .trigger-trek { background-image: linear-gradient(to right, var(--hl-trek), var(--hl-trek)); }
     .trigger-photo { background-image: linear-gradient(to right, var(--hl-photo), var(--hl-photo)); }
     .trigger-art { background-image: linear-gradient(to right, var(--hl-art), var(--hl-art)); }
-    
-    .bio-trigger:hover {
+
+    .bio-trigger:hover, .bio-trigger:focus-visible, .bio-trigger[aria-expanded="true"] {
       background-size: 100% 100%; border-bottom-color: transparent; color: var(--ink);
     }
 
-    /* --- EASTER EGG IMAGE INTERACTION --- */
+    /* Floating hobby photo (wide screens with a mouse) */
     #hobby-reveal {
       position: fixed; right: 5vw; top: 50%;
       transform: translateY(-50%); width: 280px; height: 350px;
@@ -196,7 +301,12 @@
     @keyframes ken-burns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
     #hobby-reveal img.visible { opacity: 1; animation: ken-burns 10s linear forwards; }
 
-    @media(max-width: 1100px) { #hobby-reveal { display: none; } }
+    /* Inline hobby photo (phones, tablets, narrow windows: tap to show) */
+    .hobby-inline { margin: 20px 0 0 0; max-width: 460px; border: 1px solid var(--line); overflow: hidden; }
+    .hobby-inline img { display: block; width: 100%; height: auto; }
+    .hobby-inline.pop { animation: fade-up 0.45s var(--ease-out); }
+
+    @media(max-width: 1100px), (hover: none) { #hobby-reveal { display: none; } }
     @media(max-width: 700px) {
       .bio-img { float: none; width: 100%; max-width: 200px; margin: 0 auto 24px auto; display: block; }
       .bio-section { text-align: left; }
@@ -214,17 +324,25 @@
 
     /* --- TIMELINE --- */
     .timeline {
+      position: relative;
       border-left: 1px solid var(--line); margin-left: 7px;
       padding-left: 32px; display: flex; flex-direction: column; gap: 40px;
     }
+    /* Orange line that draws itself as you scroll (enabled by JS) */
+    .timeline::after {
+      content: ''; position: absolute; left: -1px; top: 0; bottom: 0; width: 1px;
+      background: var(--accent); transform-origin: top; transform: scaleY(var(--p, 0));
+      z-index: 0; display: none;
+    }
+    .timeline.drawing::after { display: block; }
     .timeline-item { position: relative; }
     .timeline-item::before {
-      content: ''; position: absolute; left: -37px; top: 6px;
+      content: ''; position: absolute; left: -37px; top: 6px; z-index: 1;
       width: 9px; height: 9px; background: var(--bg);
       border: 1px solid var(--accent); border-radius: 50%;
       transition: background 0.3s;
     }
-    .timeline-item:hover::before { background: var(--accent); }
+    .timeline-item:hover::before, .timeline-item.passed::before { background: var(--accent); }
     .timeline-date {
       font-family: var(--font-display); font-weight: 700; font-size: 1.3rem;
       color: var(--sub); margin-bottom: 6px;
@@ -233,19 +351,26 @@
     .timeline-loc { color: var(--sub); font-weight: 400; }
     .timeline-desc { font-size: 1rem; color: var(--sub); margin-top: 4px; }
 
-    /* --- FISHEYE LIST --- */
-    .list-section { position: relative; }
-    .fisheye-list { list-style: none; padding: 0; margin: 0; position: relative; }
-    
-    .fisheye-item {
+    /* --- SELECTED RESEARCH --- */
+    #publications { scroll-margin-top: 40px; }
+
+    .filter-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 28px; }
+    .filter-count {
+      margin-left: auto; font-size: 0.8rem; color: var(--sub);
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    .pub-list { list-style: none; padding: 0; margin: 0; position: relative; border-bottom: 1px solid var(--line); }
+
+    .pub-item {
       position: relative; border-top: 1px solid var(--line);
       padding: 32px 0; display: block; transition: border-color 0.3s;
     }
-    .fisheye-item:last-child { border-bottom: 1px solid var(--line); }
+    .pub-item.pop { animation: fade-up 0.4s var(--ease-out); }
 
     .item-content {
       display: flex; flex-direction: column; gap: 10px; width: 100%;
-      transform-origin: left center; position: relative; z-index: 2; pointer-events: auto;
+      position: relative; z-index: 2;
     }
 
     .pub-title {
@@ -253,23 +378,40 @@
       font-weight: 700; color: var(--ink); margin: 0; transition: color 0.2s;
     }
     .pub-venue { font-family: var(--font-body); font-size: 0.95rem; color: var(--sub); }
+    .badge {
+      display: inline-block; margin-left: 10px; padding: 0 8px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--accent); border: 1px solid var(--accent); vertical-align: 1px;
+    }
 
     .pub-action-row {
       display: flex; justify-content: space-between; align-items: center;
       margin-top: 14px; flex-wrap: wrap; gap: 10px;
     }
-    .pub-tags { display: flex; gap: 8px; align-items: center; }
-    
+    .pub-tags { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
     .topic-pill {
       font-size: 0.75rem; padding: 4px 12px; border-radius: 99px;
       font-weight: 700; color: white; letter-spacing: 0.02em;
       text-transform: uppercase; display: inline-block;
     }
+    button.topic-pill {
+      font-family: var(--font-body); line-height: 1.6; border: 0; margin: 0;
+      cursor: pointer; -webkit-appearance: none; appearance: none;
+      transition: opacity 0.25s, transform 0.2s;
+    }
+    button.topic-pill:hover { transform: translateY(-1px); }
     .tag-purple { background-color: var(--c-purple); }
     .tag-teal { background-color: var(--c-teal); }
     .tag-orange { background-color: var(--c-orange); }
     .tag-blue { background-color: var(--c-blue); }
     .tag-red { background-color: var(--c-red); }
+    .tag-pink { background-color: var(--c-pink); }
+
+    .pill-all { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+    .pill-all.active { background: var(--ink); color: var(--bg); }
+    .filter-bar.filtering .topic-pill:not(.active) { opacity: 0.3; }
+    .filter-bar.filtering .topic-pill:not(.active):hover { opacity: 0.7; }
 
     .pub-links { display: flex; gap: 10px; }
     .btn-link {
@@ -279,15 +421,37 @@
     }
     .btn-link:hover { background: var(--ink); color: var(--bg); }
 
-    .fisheye-item:hover { border-top-color: var(--accent); }
-    .fisheye-item:hover .pub-title { color: var(--accent); }
+    .pub-item:hover { border-top-color: var(--accent); }
+    .pub-item:hover .pub-title { color: var(--accent); }
+
+    .more-link {
+      display: inline-block; margin-top: 28px;
+      font-size: 0.85rem; color: var(--sub); text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    /* Paper figure preview in the right margin (wide screens with a mouse) */
+    #paper-reveal {
+      position: fixed; right: 24px; top: 0;
+      width: min(340px, calc((100vw - 900px) / 2 - 24px));
+      padding: 10px; background: #fff; border: 1px solid var(--line);
+      pointer-events: none; z-index: 10; opacity: 0; transform: translateX(12px);
+      transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+      display: none;
+    }
+    #paper-reveal.glide { transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out), top 0.35s var(--ease-out); }
+    #paper-reveal.on { opacity: 1; transform: none; }
+    #paper-reveal img { display: block; width: 100%; height: auto; }
+    html.dark #paper-reveal { filter: brightness(0.92); }
+    @media (min-width: 1400px) and (hover: hover) { #paper-reveal { display: block; } }
 
     @media(max-width: 700px) {
       .pub-action-row { flex-direction: column; align-items: flex-start; gap: 12px; }
       .header-controls { flex-direction: column-reverse; align-items: flex-end; gap: 16px; }
       .timeline { border-left: none; padding-left: 0; }
-      .timeline-item::before { display: none; }
+      .timeline::after, .timeline-item::before { display: none !important; }
       .display-l { font-size: 3.5rem; }
+      .hook { font-size: 1.9rem; }
+      .filter-count { margin-left: 0; width: 100%; }
     }
 
     /* --- FOOTER --- */
@@ -296,77 +460,108 @@
       display: flex; justify-content: space-between;
       font-size: 0.85rem; color: var(--sub); text-transform: uppercase;
     }
+
+    /* --- REDUCED MOTION: keep everything still --- */
+    @media (prefers-reduced-motion: reduce) {
+      .bio-img, #hobby-reveal img.visible, .now-dot::after,
+      .js .hook, .hobby-inline.pop, .pub-item.pop, .display-l .char { animation: none !important; }
+      .now-dot::after { display: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    @media print {
+      .reveal { opacity: 1 !important; transform: none !important; }
+      #topology-canvas, #hobby-reveal, #paper-reveal, .theme-toggle, .filter-bar { display: none !important; }
+    }
   </style>
 </head>
 <body>
 
-  <canvas id="topology-canvas"></canvas>
+  <canvas id="topology-canvas" aria-hidden="true"></canvas>
 
-  <div id="hobby-reveal">
-    <img id="img-trekking" src="assets/trekking.jpg" alt="Trekking Photo" style="object-position: 60% center;">
-    <img id="img-photo" src="assets/viet.jpeg" alt="Photography Photo">
-    <img id="img-art" src="assets/art.jpeg" alt="Art Photo">
+  <div id="hobby-reveal" aria-hidden="true">
+    <img id="img-trekking" data-src="assets/trekking.jpg" alt="Trekking" style="object-position: 60% center;">
+    <img id="img-photo" data-src="assets/viet.jpeg" alt="A photo I took">
+    <img id="img-art" data-src="assets/art.jpeg" alt="Some of my art">
   </div>
 
+  <div id="paper-reveal" aria-hidden="true"><img alt=""></div>
+
   <main class="swiss-grid">
-    
+
     <header>
       <div class="meta-row">
         <span>Based in Rome, IT</span>
-        
+
         <div class="header-controls">
-          <nav class="contact-list">
+          <nav class="contact-list" aria-label="Links">
             <a href="assets/cv25.pdf" class="link-hover">CV</a>
-            <a href="https://scholar.google.com/citations?user=2nLw-cgAAAAJ&hl=it" class="link-hover">Scholar</a>
+            <a href="https://scholar.google.com/citations?user=2nLw-cgAAAAJ&hl=en" class="link-hover">Scholar</a>
             <a href="https://github.com/L-Scofano" class="link-hover">Github</a>
             <a href="mailto:lscofano2@gmail.com" class="link-hover">Email</a>
           </nav>
-          
-          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="theme-icon"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
+
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="theme-icon" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
           </button>
         </div>
       </div>
-      
-      <h1 class="display-l">Luca Scofano</h1>
-      
+
+      <h1 class="display-l" id="name">Luca Scofano</h1>
+      <script>
+        /* Split the name into letters for the entrance animation (skipped for reduced motion) */
+        (function () {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          var h = document.getElementById('name'), text = h.textContent, i = 0;
+          h.setAttribute('aria-label', text);
+          h.innerHTML = text.split(' ').map(function (w) {
+            return '<span class="word" aria-hidden="true">' + w.split('').map(function (c) {
+              return '<span class="char" style="--i:' + (i++) + '">' + c + '</span>';
+            }).join('') + '</span>';
+          }).join(' ');
+        })();
+      </script>
+
+      <p class="hook">From pixels to <em>polyglots</em>.</p>
+
       <div class="meta-row">
-        <span>Senior AI Researcher</span>
-        <span>Translated</span>
+        <span class="now"><span class="now-dot" aria-hidden="true"></span>Now: pre-training multilingual LLMs</span>
+        <span>Senior AI Researcher @ <a href="https://translated.com" class="link-hover">Translated</a></span>
       </div>
     </header>
 
     <section class="bio-section">
-      
-      <span class="label">Biography</span>
-      
-      <img src="assets/img.jpeg" alt="Luca Scofano" class="bio-img">
 
-    <div>
-      <p class="text-body">
-        I'm a <b>Senior AI Researcher at Translated</b>, where I work on <b>pre-training multilingual language models</b>, from designing data mixtures and training curricula to evaluating how models perform across languages.
-        Most recently, I worked on the pre-training data of <b>Lara Mini Base</b>, a multilingual mixture of experts released in November 2026.
-      </p>
-      <p class="text-body" style="margin-top: 24px;">
-        This work is part of <a href="https://dvps.translated.com/" class="link-hover"><b>DVPS</b></a>, a Horizon Europe project building models that learn from vision and the physical world, not just text.
-      </p>
-      <p class="text-body" style="margin-top: 24px;">
-        I started out in computer vision. I did a PhD and postdoc at Sapienza University, with a stint at TU Darmstadt, working on
-        <a href="#publications" class="link-hover"><b>multimodal AI</b></a>,
-        <a href="#publications" class="link-hover"><b>topological deep learning</b></a>, and
-        <a href="#publications" class="link-hover"><b>embodied AI</b></a>.
-      </p>
-      <p class="text-body" style="margin-top: 24px; color: var(--sub);">
-        Off the clock, I'm usually 
-        <span class="bio-trigger trigger-trek" data-target="img-trekking">trekking</span>, 
-        <span class="bio-trigger trigger-photo" data-target="img-photo">taking photos</span>, or 
-        <span class="bio-trigger trigger-art" data-target="img-art">making art</span>.
-      </p>
-    </div>
+      <h2 class="label"><span class="label-num">01</span> — Biography</h2>
+
+      <img src="assets/img.jpeg" alt="Luca Scofano" class="bio-img" width="260" height="260">
+
+      <div>
+        <p class="text-body">
+          I'm a <b>Senior AI Researcher at Translated</b>, where I work on <b>pre-training multilingual language models</b>, from designing data mixtures and training curricula to evaluating how models perform across languages.
+          Most recently, I worked on the pre-training data of <b>Lara Mini Base</b>, a multilingual mixture of experts released in November 2026.
+        </p>
+        <p class="text-body" style="margin-top: 24px;">
+          This work is part of <a href="https://dvps.translated.com/" class="link-hover"><b>DVPS</b></a>, a Horizon Europe project building models that learn from vision and the physical world, not just text.
+        </p>
+        <p class="text-body" style="margin-top: 24px;">
+          I started out in computer vision. I did a PhD and postdoc at Sapienza University, with a stint at TU Darmstadt, working on
+          <a href="#publications" class="link-hover" data-filter="video motion-est"><b>multimodal AI</b></a>,
+          <a href="#publications" class="link-hover" data-filter="topology"><b>topological deep learning</b></a>, and
+          <a href="#publications" class="link-hover" data-filter="robotics forecasting"><b>embodied AI</b></a>.
+        </p>
+        <p class="text-body" style="margin-top: 24px; color: var(--sub);">
+          Off the clock, I'm usually
+          <span class="bio-trigger trigger-trek" data-target="img-trekking" tabindex="0" role="button" aria-expanded="false">trekking</span>,
+          <span class="bio-trigger trigger-photo" data-target="img-photo" tabindex="0" role="button" aria-expanded="false">taking photos</span>, or
+          <span class="bio-trigger trigger-art" data-target="img-art" tabindex="0" role="button" aria-expanded="false">making art</span>.
+        </p>
+        <figure class="hobby-inline" id="hobby-inline" hidden><img alt=""></figure>
+      </div>
     </section>
 
     <section>
-      <span class="label">Latest</span>
+      <h2 class="label"><span class="label-num">02</span> — Latest</h2>
       <div class="news-grid">
         <div class="news-row">
           <span class="news-date">Nov 2026</span>
@@ -377,18 +572,158 @@
           <span>Joined Translated as Senior AI Researcher.</span>
         </div>
         <div class="news-row">
-          <span class="news-date">ICLR 25</span>
-          <span>"Following the Human Thread" accepted as Spotlight (Top 3.1%).</span>
+          <span class="news-date">Sep 2025</span>
+          <span>Local Arrangement Chair for ICIAP 2025 in Rome.</span>
         </div>
         <div class="news-row">
-          <span class="news-date">2025</span>
-          <span>Local Arrangement Chair for ICIAP25.</span>
+          <span class="news-date">Jan 2025</span>
+          <span>"Following the Human Thread" accepted at ICLR 2025 as Spotlight (Top 3.1%). <a href="https://arxiv.org/abs/2404.11327" class="link-hover">Paper</a></span>
         </div>
       </div>
     </section>
 
+    <section id="publications">
+      <h2 class="label"><span class="label-num">03</span> — Selected Research</h2>
+      <div class="filter-bar" id="filter-bar" role="group" aria-label="Filter papers by topic" hidden>
+        <span class="filter-count" id="filter-count" aria-live="polite"></span>
+      </div>
+
+      <ul class="pub-list" id="pub-list">
+
+        <li class="pub-item" data-topics="llm" data-figure="assets/papers/lara.webp">
+          <div class="item-content">
+            <h3 class="pub-title">Lara Mini Base Technical Report</h3>
+            <div class="pub-venue">arXiv 2026</div>
+            <div class="pub-action-row">
+              <div class="pub-tags">
+                <button type="button" class="topic-pill tag-pink" data-topic="llm">LLM Pretraining</button>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2611.16956" class="btn-link">arXiv</a>
+                <a href="https://huggingface.co/translated/Lara-4-Mini-Base" class="btn-link">Weights</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="pub-item" data-topics="robotics topology" data-figure="assets/papers/sda.webp">
+          <div class="item-content">
+            <h3 class="pub-title">Following the Human Thread in Social Navigation</h3>
+            <div class="pub-venue">ICLR 2025<span class="badge">★ Spotlight</span></div>
+            <div class="pub-action-row">
+              <div class="pub-tags">
+                <button type="button" class="topic-pill tag-purple" data-topic="robotics">Robotics</button>
+                <button type="button" class="topic-pill tag-red" data-topic="topology">Topological DL</button>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2404.11327" class="btn-link">arXiv</a>
+                <a href="https://github.com/L-Scofano/SDA" class="btn-link">Code</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="pub-item" data-topics="motion-est" data-figure="assets/papers/seeme.webp">
+          <div class="item-content">
+            <h3 class="pub-title">Social EgoMesh Estimation</h3>
+            <div class="pub-venue">WACV 2025</div>
+            <div class="pub-action-row">
+              <div class="pub-tags">
+                <button type="button" class="topic-pill tag-teal" data-topic="motion-est">Motion Estimation</button>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2411.04598" class="btn-link">arXiv</a>
+                <a href="https://github.com/L-Scofano/SEEME" class="btn-link">Code</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="pub-item" data-topics="topology" data-figure="assets/papers/topox.webp">
+          <div class="item-content">
+            <h3 class="pub-title">TopoX: Python Packages for ML on Topological Domains</h3>
+            <div class="pub-venue">JMLR 2025</div>
+            <div class="pub-action-row">
+              <div class="pub-tags">
+                <button type="button" class="topic-pill tag-red" data-topic="topology">Topological DL</button>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2402.02441" class="btn-link">arXiv</a>
+                <a href="https://github.com/pyt-team/TopoModelX" class="btn-link">Code</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="pub-item" data-topics="video" data-figure="assets/papers/tiprego.webp">
+          <div class="item-content">
+            <h3 class="pub-title">TI-PREGO: Chain of Thought for Online Mistake Detection</h3>
+            <div class="pub-venue">arXiv 2024</div>
+            <div class="pub-action-row">
+              <div class="pub-tags">
+                <button type="button" class="topic-pill tag-orange" data-topic="video">Video Understanding</button>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2411.02570" class="btn-link">arXiv</a>
+                <a href="https://github.com/aleflabo/PREGO" class="btn-link">Code</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="pub-item" data-topics="forecasting" data-figure="assets/papers/latent-roles.webp">
+          <div class="item-content">
+            <h3 class="pub-title">About Latent Roles in Forecasting Players in Team Sports</h3>
+            <div class="pub-venue">Neural Processing Letters 2024</div>
+            <div class="pub-action-row">
+              <div class="pub-tags">
+                <button type="button" class="topic-pill tag-blue" data-topic="forecasting">Motion Forecasting</button>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2304.08272" class="btn-link">arXiv</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="pub-item" data-topics="video" data-figure="assets/papers/prego.webp">
+          <div class="item-content">
+            <h3 class="pub-title">PREGO: Online Mistake Detection</h3>
+            <div class="pub-venue">CVPR 2024</div>
+            <div class="pub-action-row">
+              <div class="pub-tags">
+                <button type="button" class="topic-pill tag-orange" data-topic="video">Video Understanding</button>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2404.01933" class="btn-link">arXiv</a>
+                <a href="https://github.com/aleflabo/PREGO" class="btn-link">Code</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="pub-item" data-topics="forecasting" data-figure="assets/papers/stag.webp">
+          <div class="item-content">
+            <h3 class="pub-title">Staged Contact-Aware Global Human Motion Forecasting</h3>
+            <div class="pub-venue">BMVC 2023</div>
+            <div class="pub-action-row">
+              <div class="pub-tags">
+                <button type="button" class="topic-pill tag-blue" data-topic="forecasting">Motion Forecasting</button>
+              </div>
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2309.08947" class="btn-link">arXiv</a>
+                <a href="https://github.com/L-Scofano/STAG" class="btn-link">Code</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+      <a href="https://scholar.google.com/citations?user=2nLw-cgAAAAJ&hl=en" class="more-link link-hover">All publications on Google Scholar →</a>
+    </section>
+
     <section>
-      <span class="label">Timeline</span>
+      <h2 class="label"><span class="label-num">04</span> — Timeline</h2>
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-date">Feb 2026 — Present</div>
@@ -398,17 +733,17 @@
         <div class="timeline-item">
           <div class="timeline-date">2025 — Jan 2026</div>
           <div class="timeline-role">Postdoctoral Researcher <span class="timeline-loc">/ Sapienza University</span></div>
-          <div class="timeline-desc">Applying AI Methods to decode neural signals.</div>
+          <div class="timeline-desc">Applying AI methods to decode neural signals.</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-date">2025</div>
-          <div class="timeline-role">AI Researcher (Contractor) <span class="timeline-loc">/ Sapienza & Yocabe srl</span></div>
+          <div class="timeline-role">AI Researcher (Contractor) <span class="timeline-loc">/ Sapienza &amp; Yocabe srl</span></div>
           <div class="timeline-desc">Return-rate prediction pipelines.</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-date">2024</div>
           <div class="timeline-role">Visiting Researcher <span class="timeline-loc">/ TU Darmstadt</span></div>
-          <div class="timeline-desc">Embodied AI & GNNs.</div>
+          <div class="timeline-desc">Embodied AI &amp; GNNs.</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-date">2021 — 2025</div>
@@ -416,141 +751,6 @@
           <div class="timeline-desc">Motion forecasting, egocentric perception, topological deep learning.</div>
         </div>
       </div>
-    </section>
-
-    <section class="list-section" id="publications">
-      <span class="label">Selected Research</span>
-      <ul class="fisheye-list" id="fisheye-container">
-
-        <li class="fisheye-item" data-id="0">
-          <div class="item-content">
-            <h4 class="pub-title">Lara Mini Base Technical Report</h4>
-            <div class="pub-venue">arXiv 2026</div>
-            <div class="pub-action-row">
-               <div class="pub-tags">
-                  <span class="topic-pill tag-teal">LLM Pretraining</span>
-               </div>
-               <div class="pub-links">
-                  <a href="https://arxiv.org/abs/2611.16956" class="btn-link">arXiv</a>
-                  <a href="https://huggingface.co/translated/Lara-4-Mini-Base" class="btn-link">Weights</a>
-               </div>
-            </div>
-          </div>
-        </li>
-
-        <li class="fisheye-item" data-id="1">
-          <div class="item-content">
-            <h4 class="pub-title">Following the Human Thread in Social Navigation</h4>
-            <div class="pub-venue">ICLR 2025 (Spotlight)</div>
-            <div class="pub-action-row">
-               <div class="pub-tags">
-                  <span class="topic-pill tag-purple">Robotics</span>
-                  <span class="topic-pill tag-purple">Topology</span>
-               </div>
-               <div class="pub-links">
-                  <a href="https://arxiv.org/abs/2404.11327" class="btn-link">arXiv</a>
-                  <a href="https://github.com/L-Scofano/SDA" class="btn-link">Code</a>
-               </div>
-            </div>
-          </div>
-        </li>
-
-        <li class="fisheye-item" data-id="2">
-          <div class="item-content">
-            <h4 class="pub-title">Social EgoMesh Estimation</h4>
-            <div class="pub-venue">WACV 2025</div>
-            <div class="pub-action-row">
-               <div class="pub-tags">
-                  <span class="topic-pill tag-teal">Motion Estimation</span>
-               </div>
-               <div class="pub-links">
-                  <a href="https://arxiv.org/abs/2411.04598" class="btn-link">arXiv</a>
-                  <a href="https://github.com/L-Scofano/SEEME" class="btn-link">Code</a>
-               </div>
-            </div>
-          </div>
-        </li>
-
-        <li class="fisheye-item" data-id="3">
-          <div class="item-content">
-            <h4 class="pub-title">TopoX: Python Packages for ML on Topological Domains</h4>
-            <div class="pub-venue">JMLR 2025</div>
-            <div class="pub-action-row">
-               <div class="pub-tags">
-                  <span class="topic-pill tag-red">Topological DL</span>
-               </div>
-               <div class="pub-links">
-                  <a href="https://arxiv.org/abs/2402.02441" class="btn-link">arXiv</a>
-                  <a href="https://github.com/pyt-team/TopoModelX" class="btn-link">Code</a>
-               </div>
-            </div>
-          </div>
-        </li>
-
-        <li class="fisheye-item" data-id="4">
-          <div class="item-content">
-            <h4 class="pub-title">TI-PREGO: Chain of Thought for Online Mistake Detection</h4>
-            <div class="pub-venue">arXiv 2024</div>
-            <div class="pub-action-row">
-               <div class="pub-tags">
-                  <span class="topic-pill tag-orange">Video Understanding</span>
-               </div>
-               <div class="pub-links">
-                  <a href="https://arxiv.org/abs/2411.02570" class="btn-link">arXiv</a>
-                  <a href="https://github.com/aleflabo/PREGO" class="btn-link">Code</a>
-               </div>
-            </div>
-          </div>
-        </li>
-
-        <li class="fisheye-item" data-id="5">
-          <div class="item-content">
-            <h4 class="pub-title">About Latent Roles in Forecasting Players in Team Sports</h4>
-            <div class="pub-venue">Neural Processing Letters 2024</div>
-            <div class="pub-action-row">
-               <div class="pub-tags">
-                  <span class="topic-pill tag-blue">Motion Forecasting</span>
-               </div>
-               <div class="pub-links">
-                  <a href="https://arxiv.org/abs/2304.08272" class="btn-link">arXiv</a>
-               </div>
-            </div>
-          </div>
-        </li>
-
-        <li class="fisheye-item" data-id="6">
-          <div class="item-content">
-            <h4 class="pub-title">PREGO: Online Mistake Detection</h4>
-            <div class="pub-venue">CVPR 2024</div>
-            <div class="pub-action-row">
-               <div class="pub-tags">
-                  <span class="topic-pill tag-orange">Video Understanding</span>
-               </div>
-               <div class="pub-links">
-                  <a href="https://arxiv.org/abs/2404.01933" class="btn-link">arXiv</a>
-                  <a href="https://github.com/aleflabo/PREGO" class="btn-link">Code</a>
-               </div>
-            </div>
-          </div>
-        </li>
-
-        <li class="fisheye-item" data-id="7">
-          <div class="item-content">
-            <h4 class="pub-title">Staged Contact-Aware Global Human Motion Forecasting</h4>
-            <div class="pub-venue">BMVC 2023</div>
-            <div class="pub-action-row">
-               <div class="pub-tags">
-                  <span class="topic-pill tag-blue">Motion Forecasting</span>
-               </div>
-               <div class="pub-links">
-                  <a href="https://arxiv.org/abs/2309.08947" class="btn-link">arXiv</a>
-                  <a href="https://github.com/L-Scofano/STAG" class="btn-link">Code</a>
-               </div>
-            </div>
-          </div>
-        </li>
-
-      </ul>
     </section>
 
     <footer>
@@ -561,133 +761,325 @@
   </main>
 
   <script>
-    /* --- DARK MODE LOGIC --- */
+  (function () {
+    const root = document.documentElement;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const canHover = window.matchMedia('(hover: hover)');
+    const whenIdle = fn => ('requestIdleCallback' in window) ? requestIdleCallback(fn, { timeout: 3000 }) : setTimeout(fn, 1500);
+
+
+    /* --- SECTIONS FADE IN ON SCROLL --- */
+    if (!reduceMotion.matches && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+      document.querySelectorAll('main > section').forEach(s => { s.classList.add('reveal'); io.observe(s); });
+    }
+
+
+    /* --- DARK MODE --- */
     const themeBtn = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
-    
-    function updateIcon(isDark) {
-      if(isDark) {
-        themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-      } else {
-        themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>';
-      }
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    const SUN = '<circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>';
+    const MOON = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+
+    function syncThemeChrome() {
+      const dark = root.classList.contains('dark');
+      themeIcon.innerHTML = dark ? MOON : SUN;
+      themeMeta.setAttribute('content', dark ? '#121212' : '#FDFBF7');
     }
-    const savedTheme = localStorage.getItem('theme');
-    if(savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.body.classList.add('dark');
-      updateIcon(true);
-    }
+    syncThemeChrome();
     themeBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      const isDark = document.body.classList.contains('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      updateIcon(isDark);
+      root.classList.toggle('dark');
+      try { localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light'); } catch (e) {}
+      syncThemeChrome();
+      redrawIfStill();
     });
 
 
-
-    /**
-     * HOBBY SIDE REVEAL INTERACTION
-     */
+    /* --- HOBBY PHOTOS --- */
+    const hobbyReveal = document.getElementById('hobby-reveal');
+    const hobbyImgs = hobbyReveal.querySelectorAll('img');
+    const hobbyInline = document.getElementById('hobby-inline');
+    const hobbyInlineImg = hobbyInline.querySelector('img');
     const triggers = document.querySelectorAll('.bio-trigger');
-    const hobbyContainer = document.getElementById('hobby-reveal');
-    
-    triggers.forEach(trigger => {
-      trigger.addEventListener('mouseenter', () => {
-        const targetId = trigger.getAttribute('data-target');
-        const img = document.getElementById(targetId);
-        
-        hobbyContainer.style.opacity = 1;
-        document.querySelectorAll('#hobby-reveal img').forEach(el => el.classList.remove('visible'));
-        if(img) img.classList.add('visible');
-      });
+    const floatingHobby = () => canHover.matches && getComputedStyle(hobbyReveal).display !== 'none';
+    const loadImg = img => { if (!img.getAttribute('src')) img.src = img.dataset.src; };
 
-      trigger.addEventListener('mouseleave', () => {
-         hobbyContainer.style.opacity = 0;
-         document.querySelectorAll('#hobby-reveal img').forEach(el => el.classList.remove('visible'));
+    function showFloating(id) {
+      hobbyImgs.forEach(img => {
+        if (img.id === id) { loadImg(img); img.classList.add('visible'); }
+        else img.classList.remove('visible');
+      });
+      hobbyReveal.style.opacity = 1;
+    }
+    function hideFloating() {
+      hobbyReveal.style.opacity = 0;
+      hobbyImgs.forEach(img => img.classList.remove('visible'));
+    }
+
+    let inlineFor = null;
+    function toggleInline(trigger) {
+      const id = trigger.dataset.target;
+      triggers.forEach(t => t.setAttribute('aria-expanded', 'false'));
+      if (inlineFor === id) { hobbyInline.hidden = true; inlineFor = null; return; }
+      const source = document.getElementById(id);
+      hobbyInlineImg.src = source.dataset.src;
+      hobbyInlineImg.alt = source.alt;
+      hobbyInline.hidden = false;
+      hobbyInline.classList.remove('pop'); void hobbyInline.offsetWidth; hobbyInline.classList.add('pop');
+      trigger.setAttribute('aria-expanded', 'true');
+      inlineFor = id;
+    }
+
+    triggers.forEach(t => {
+      t.addEventListener('mouseenter', () => { if (floatingHobby()) showFloating(t.dataset.target); });
+      t.addEventListener('mouseleave', () => { if (floatingHobby()) hideFloating(); });
+      t.addEventListener('focus', () => { if (floatingHobby()) showFloating(t.dataset.target); });
+      t.addEventListener('blur', () => { if (floatingHobby()) hideFloating(); });
+      t.addEventListener('click', () => { if (!floatingHobby()) toggleInline(t); });
+      t.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t.click(); }
       });
     });
 
 
+    /* --- SELECTED RESEARCH: TOPIC FILTER --- */
+    const pubList = document.getElementById('pub-list');
+    const pubs = Array.from(pubList.querySelectorAll('.pub-item'));
+    const filterBar = document.getElementById('filter-bar');
+    const filterCount = document.getElementById('filter-count');
+
+    const allBtn = document.createElement('button');
+    allBtn.type = 'button';
+    allBtn.className = 'topic-pill pill-all';
+    allBtn.textContent = 'All';
+    filterBar.insertBefore(allBtn, filterCount);
+    const seenTopics = new Set();
+    pubList.querySelectorAll('.topic-pill').forEach(pill => {
+      if (seenTopics.has(pill.dataset.topic)) return;
+      seenTopics.add(pill.dataset.topic);
+      filterBar.insertBefore(pill.cloneNode(true), filterCount);
+    });
+    filterBar.hidden = false;
+
+    let activeTopics = null;
+    function setFilter(topics) {
+      activeTopics = topics && topics.length ? new Set(topics) : null;
+      pubs.forEach(li => {
+        const show = !activeTopics || li.dataset.topics.split(' ').some(t => activeTopics.has(t));
+        if (show && li.hidden) {
+          li.hidden = false;
+          li.classList.remove('pop'); void li.offsetWidth; li.classList.add('pop');
+        } else if (!show) {
+          li.hidden = true;
+        }
+      });
+      filterBar.classList.toggle('filtering', !!activeTopics);
+      filterBar.querySelectorAll('.topic-pill').forEach(b => {
+        const on = b === allBtn ? !activeTopics : !!activeTopics && activeTopics.has(b.dataset.topic);
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      const visible = pubs.filter(li => !li.hidden).length;
+      filterCount.textContent = activeTopics ? visible + ' of ' + pubs.length + ' papers' : pubs.length + ' papers';
+    }
+    setFilter(null);
+
+    document.addEventListener('click', e => {
+      const pill = e.target.closest('.topic-pill');
+      if (pill) {
+        if (pill === allBtn) return setFilter(null);
+        const t = pill.dataset.topic;
+        const alreadyOnly = activeTopics && activeTopics.size === 1 && activeTopics.has(t);
+        setFilter(alreadyOnly ? null : [t]);
+        if (!filterBar.contains(pill)) {
+          document.getElementById('publications').scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+        }
+        return;
+      }
+      const themeLink = e.target.closest('[data-filter]');
+      if (themeLink) setFilter(themeLink.dataset.filter.split(' '));
+    });
+
+
+    /* --- SELECTED RESEARCH: FIGURE PREVIEW ON HOVER --- */
+    const paperReveal = document.getElementById('paper-reveal');
+    const paperImg = paperReveal.querySelector('img');
+    const paperPreviews = () => canHover.matches && getComputedStyle(paperReveal).display !== 'none';
+    let currentPaper = null, paperHideTimer = null;
+
+    function placePaper() {
+      if (!currentPaper) return;
+      const r = currentPaper.getBoundingClientRect();
+      const h = paperReveal.offsetHeight;
+      const top = Math.max(16, Math.min(r.top + r.height / 2 - h / 2, window.innerHeight - h - 16));
+      paperReveal.style.top = top + 'px';
+    }
+    function showPaper(li) {
+      const fig = li.dataset.figure;
+      if (!fig || !paperPreviews()) return;
+      clearTimeout(paperHideTimer);
+      paperReveal.classList.toggle('glide', paperReveal.classList.contains('on'));
+      currentPaper = li;
+      if (paperImg.getAttribute('src') !== fig) {
+        paperImg.onload = placePaper;
+        paperImg.src = fig;
+        paperImg.alt = 'Figure from ' + li.querySelector('.pub-title').textContent;
+      }
+      placePaper();
+      paperReveal.classList.add('on');
+    }
+    function hidePaper(li) {
+      if (currentPaper !== li) return;
+      paperHideTimer = setTimeout(() => { paperReveal.classList.remove('on'); currentPaper = null; }, 120);
+    }
+    pubs.forEach(li => {
+      li.addEventListener('mouseenter', () => showPaper(li));
+      li.addEventListener('mouseleave', () => hidePaper(li));
+    });
+    window.addEventListener('scroll', () => { if (currentPaper) placePaper(); }, { passive: true });
+
+
+    /* Preload hover images once the page is idle, only where they can be shown */
+    window.addEventListener('load', () => whenIdle(() => {
+      if (floatingHobby()) hobbyImgs.forEach(loadImg);
+      if (paperPreviews()) pubs.forEach(li => { if (li.dataset.figure) new Image().src = li.dataset.figure; });
+    }));
+
+
+    /* --- TIMELINE DRAWS ITSELF AS YOU SCROLL --- */
+    const timeline = document.querySelector('.timeline');
+    const timelineItems = timeline.querySelectorAll('.timeline-item');
+    if (!reduceMotion.matches) {
+      timeline.classList.add('drawing');
+      let ticking = false;
+      const updateTimeline = () => {
+        ticking = false;
+        const r = timeline.getBoundingClientRect();
+        let p = (window.innerHeight * 0.65 - r.top) / r.height;
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) p = 1;
+        p = Math.max(0, Math.min(1, p));
+        timeline.style.setProperty('--p', p.toFixed(4));
+        const reached = p * r.height;
+        timelineItems.forEach(it => it.classList.toggle('passed', p > 0 && it.offsetTop + 8 <= reached));
+      };
+      window.addEventListener('scroll', () => {
+        if (!ticking) { ticking = true; requestAnimationFrame(updateTimeline); }
+      }, { passive: true });
+      window.addEventListener('resize', updateTimeline);
+      updateTimeline();
+    }
+
+
     /**
-     * BACKGROUND TOPOLOGY CANVAS ANIMATION
+     * BACKGROUND TOPOLOGY CANVAS
+     * A drifting graph; some nodes are letters from different writing systems.
      */
     const canvas = document.getElementById('topology-canvas');
     const ctx = canvas.getContext('2d');
-    let points = [];
+    const GLYPHS = ['a', 'α', 'ж', 'ש', 'ع', 'あ', '中', 'अ', '한', 'ก', 'ა', 'ß', 'ñ', 'ψ', 'ক', 'த', 'ሀ', 'Ω', 'ç', 'ե'];
     const maxDist = 120;
     const mouse = { x: -9999, y: -9999 };
-
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initPoints();
-    }
+    let points = [], W = 0, H = 0, running = false;
 
     function initPoints() {
       points = [];
-      const count = Math.floor((canvas.width * canvas.height) / 14000);
-      for(let i = 0; i < count; i++) {
+      const count = Math.floor((W * H) / 14000);
+      for (let i = 0; i < count; i++) {
         points.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
+          x: Math.random() * W,
+          y: Math.random() * H,
           vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5
+          vy: (Math.random() - 0.5) * 0.5,
+          g: Math.random() < 0.15 ? GLYPHS[Math.floor(Math.random() * GLYPHS.length)] : null
         });
       }
     }
 
-    function animateTopology() {
-      requestAnimationFrame(animateTopology);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      const isDark = document.body.classList.contains('dark');
+    function resize() {
+      const w = window.innerWidth, h = window.innerHeight;
+      const widthChanged = w !== W;
+      W = w; H = h;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // Only reshuffle when the width changes: mobile browsers fire height-only resizes while scrolling
+      if (widthChanged || !points.length) initPoints();
+      redrawIfStill();
+    }
+
+    function draw(move) {
+      ctx.clearRect(0, 0, W, H);
+      const isDark = root.classList.contains('dark');
       const lineColor = isDark ? '255, 255, 255' : '26, 26, 26';
-      const dotColor = isDark ? '#FF4F24' : '#FF3300';
+      ctx.fillStyle = isDark ? '#FF4F24' : '#FF3300';
+      ctx.lineWidth = 1;
+      ctx.font = '14px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
 
-      for(let i = 0; i < points.length; i++) {
-        let p = points[i];
-        p.x += p.vx; p.y += p.vy;
-        
-        let dx = mouse.x - p.x; let dy = mouse.y - p.y;
-        let dist = Math.sqrt(dx*dx + dy*dy);
-        if(dist < 200) {
-          let angle = Math.atan2(dy, dx);
-          let force = (200 - dist) / 200;
-          p.x -= Math.cos(angle) * force * 2;
-          p.y -= Math.sin(angle) * force * 2;
+      for (let i = 0; i < points.length; i++) {
+        const p = points[i];
+        if (move) {
+          p.x += p.vx; p.y += p.vy;
+          const dx = mouse.x - p.x, dy = mouse.y - p.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 200) {
+            const angle = Math.atan2(dy, dx);
+            const force = (200 - dist) / 200;
+            p.x -= Math.cos(angle) * force * 2;
+            p.y -= Math.sin(angle) * force * 2;
+          }
+          if (p.x < 0 || p.x > W) p.vx *= -1;
+          if (p.y < 0 || p.y > H) p.vy *= -1;
         }
-        
-        if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
 
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 2, 0, Math.PI*2);
-        ctx.fillStyle = dotColor;
-        ctx.fill();
+        if (p.g) {
+          ctx.fillText(p.g, p.x, p.y);
+        } else {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+          ctx.fill();
+        }
 
-        for(let j = i + 1; j < points.length; j++) {
-          let p2 = points[j];
-          let lx = p.x - p2.x; let ly = p.y - p2.y;
-          let lDist = Math.sqrt(lx*lx + ly*ly);
-          if(lDist < maxDist) {
+        for (let j = i + 1; j < points.length; j++) {
+          const p2 = points[j];
+          const lx = p.x - p2.x, ly = p.y - p2.y;
+          const lDist = Math.sqrt(lx * lx + ly * ly);
+          if (lDist < maxDist) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            let alpha = 1 - (lDist / maxDist);
-            ctx.strokeStyle = `rgba(${lineColor}, ${alpha * 0.15})`;
+            ctx.strokeStyle = `rgba(${lineColor}, ${(1 - lDist / maxDist) * 0.15})`;
             ctx.stroke();
           }
         }
       }
     }
 
+    function loop() {
+      if (!running) return;
+      draw(true);
+      requestAnimationFrame(loop);
+    }
+    function redrawIfStill() { if (!running && W) draw(false); }
+    function start() {
+      if (reduceMotion.matches) { running = false; redrawIfStill(); }
+      else if (!running) { running = true; requestAnimationFrame(loop); }
+    }
+
     window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
     window.addEventListener('resize', resize);
+    if (reduceMotion.addEventListener) reduceMotion.addEventListener('change', () => { running = false; start(); });
 
     resize();
-    animateTopology();
-
+    start();
+  })();
   </script>
 </body>
 </html>
